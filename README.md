@@ -7,12 +7,10 @@ Project-2
 	Dustin D.
 	Eric P.
 
-## Description
-	In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of
-
-	* A **shape language** that allows basic shapes such as squares, circles, and polygons to be defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
-
-	* A **shapes-to-PostScript translator** that takes as input a drawing specified using CPS's shape language and produces a PostScript file from it.
+## Description:
+	In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of:
+* A **shape language** that allows basic shapes such as squares, circles, and polygons to be defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
+* A **shapes-to-PostScript translator** that takes as input a drawing specified using CPS's shape language and produces a PostScript file from it.
 
 ## Specification
 ### Shape language
@@ -52,15 +50,15 @@ Compound shapes are shapes that are constructed from one or more other shapes, w
 
 * **Vertical(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
 
-⋅⋅1. Shape shapes[i+1]'s bounding box is located directly above the bounding box of shapes[i], and both bounding boxes are vertically aligned around their center.
-⋅⋅2. The height of the resulting shape's bounding box is the sum of the heights of the component shapes.
-⋅⋅3. The width of the resulting shape's bounding box is the maximum width of the widths of the component shapes.
+*		Shape shapes[i+1]'s bounding box is located directly above the bounding box of shapes[i], and both bounding boxes are vertically aligned around their center.
+*		The height of the resulting shape's bounding box is the sum of the heights of the component shapes.
+*		The width of the resulting shape's bounding box is the maximum width of the widths of the component shapes.
 
 * **Horizontal(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
 
-⋅⋅1. Shape shapes[i+1]'s bounding box is located next to (to the right of) the bounding box of shapes[i], and both bounding boxes are horizontally aligned around their center.
-⋅⋅2. The width of the resulting shape's bounding box is the sum of the widths of the component shapes.
-⋅⋅3. The height of the resulting shape's bounding box is the maximum width of the heights of the component shapes.
+*		Shape shapes[i+1]'s bounding box is located next to (to the right of) the bounding box of shapes[i], and both bounding boxes are horizontally aligned around their center.
+*		The width of the resulting shape's bounding box is the sum of the widths of the component shapes.
+*		The height of the resulting shape's bounding box is the maximum width of the heights of the component shapes.
 
 ### CPS to PostScript translator
 CPS lets the user translate any shape into a sequence of PostScript commands. The user can specify the name of the resulting file. The resulting file is a legal PostScript file that can be previewed on screen or printed on paper.
@@ -78,15 +76,15 @@ CPS lets the user translate any shape into a sequence of PostScript commands. Th
 3. When implementing a function that generates a PostScript program, it may be useful to (1) assume, on entry to each visiting method, that the point around which the shape is to be centered has already been correctly set; and (2) for basic shapes, to draw the shape by starting a new path, drawing, closing the path, and calling stroke; and (3) for some operation methods, to use gsave on entry and grestore before exit. These are only suggestions, however, and you might find a different (and maybe better) approach.
 4. The width and height of the bounding box for Polygon(n, e) is given by the following formulas:
 
-*	Case 1: n is odd.
+*		Case 1: n is odd.
 	height = e(1+cos(π/n))/(2sin(π/n))
 	width = (e sin(π(n-1)/2n))/(sin(π/n))
 
-*	Case 2: n is divisible by 4.
+*		Case 2: n is divisible by 4.
 	height = e(cos(π/n))/(sin(π/n))
 	width = (e cos(π/n))/(sin(π/n))
 
-*	Case 3: n is divisible by 2, but not by 4.
+*		Case 3: n is divisible by 2, but not by 4.
 	height = e(cos(π/n))/(sin(π/n))
 	width = e/(sin(π/n))
 
