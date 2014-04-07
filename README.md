@@ -7,8 +7,8 @@ Project-2
 	Dustin D.
 	Eric P.
 
-## Description:
-	In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of:
+## Description
+	In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of
 
 	* A **shape language** that allows basic shapes such as squares, circles, and polygons to be defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
 
