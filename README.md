@@ -72,18 +72,18 @@ CPS lets the user translate any shape into a sequence of PostScript commands. Th
 1. The standard way to structure an implementation of a language is to have a collection of classes for representing the syntactic objects of the language (in this case, the shapes), and some functions that perform operations with these objects. For CPS, these operations might compute the width and height of a shape, and convert a shape into a PostScript program.
 2. The "..." syntax in the compound shape definitions above is meant to represent "any number of." You will need to implement this as some sort of C++ container. (I'd recommend just having a constructor that takes an initializer_list.)
 3. When implementing a function that generates a PostScript program, it may be useful to (1) assume, on entry to each visiting method, that the point around which the shape is to be centered has already been correctly set; and (2) for basic shapes, to draw the shape by starting a new path, drawing, closing the path, and calling stroke; and (3) for some operation methods, to use gsave on entry and grestore before exit. These are only suggestions, however, and you might find a different (and maybe better) approach.
-4. The width and height of the bounding box for Polygon(n, e) is given by the following formulas:
+4. The width and height of the bounding box for Polygon(numberOfSides, sideLength) is given by the following formulas:
 
-*		Case 1: n is odd.
-	height = e(1+cos(π/n))/(2sin(π/n))
-	width = (e sin(π(n-1)/2n))/(sin(π/n))
+*	**Case 1:** numberOfSides is *odd*.
+		height = sideLength(1+cos(π/numberOfSides))/(2sin(π/numberOfSides))
+		width = (sideLength sin(π(numberOfSides-1)/2n))/(sin(π/numberOfSides))
 
-*		Case 2: n is divisible by 4.
-	height = e(cos(π/n))/(sin(π/n))
-	width = (e cos(π/n))/(sin(π/n))
+*	**Case 2:** numberOfSides is divisible by 4.
+		height = sideLength(cos(π/numberOfSides))/(sin(π/numberOfSides))
+		width = (sideLength cos(π/numberOfSides))/(sin(π/numberOfSides))
 
-*		Case 3: n is divisible by 2, but not by 4.
-	height = e(cos(π/n))/(sin(π/n))
-	width = e/(sin(π/n))
+*	**Case 3:** numberOfSides is divisible by 2, but not by 4.
+		height = sideLength(cos(π/numberOfSides))/(sin(π/numberOfSides))
+		width = sideLength /(sin(π/numberOfSides))
 
 5. In PostScript, use showpage to finally draw the current page and create a new page.
