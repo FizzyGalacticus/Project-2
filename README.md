@@ -49,13 +49,11 @@ Compound shapes are shapes that are constructed from one or more other shapes, w
 * **Layered(Shape... shapes).** Given a collection of shapes, creates a new shape consisting of all the shapes drawn with their bounding boxes centered around the current point. The height and width of a layered shape is the maximum of the heights and widths of the component shapes.
 
 * **Vertical(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
-
 *		Shape shapes[i+1]'s bounding box is located directly above the bounding box of shapes[i], and both bounding boxes are vertically aligned around their center.
 *		The height of the resulting shape's bounding box is the sum of the heights of the component shapes.
 *		The width of the resulting shape's bounding box is the maximum width of the widths of the component shapes.
 
 * **Horizontal(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
-
 *		Shape shapes[i+1]'s bounding box is located next to (to the right of) the bounding box of shapes[i], and both bounding boxes are horizontally aligned around their center.
 *		The width of the resulting shape's bounding box is the sum of the widths of the component shapes.
 *		The height of the resulting shape's bounding box is the maximum width of the heights of the component shapes.
