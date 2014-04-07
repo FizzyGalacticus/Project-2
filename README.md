@@ -75,15 +75,18 @@ CPS lets the user translate any shape into a sequence of PostScript commands. Th
 4. The width and height of the bounding box for Polygon(numberOfSides, sideLength) is given by the following formulas:
 
 *	**Case 1:** numberOfSides is *odd*.
-		height = sideLength(1+cos(π/numberOfSides))/(2sin(π/numberOfSides))
-		width = (sideLength sin(π(numberOfSides-1)/2n))/(sin(π/numberOfSides))
+
+*		height = sideLength(1+cos(π/numberOfSides))/(2sin(π/numberOfSides))
+*		width = (sideLength sin(π(numberOfSides-1)/2n))/(sin(π/numberOfSides))
 
 *	**Case 2:** numberOfSides is divisible by 4.
-		height = sideLength(cos(π/numberOfSides))/(sin(π/numberOfSides))
-		width = (sideLength cos(π/numberOfSides))/(sin(π/numberOfSides))
+
+*		height = sideLength(cos(π/numberOfSides))/(sin(π/numberOfSides))
+*		width = (sideLength cos(π/numberOfSides))/(sin(π/numberOfSides))
 
 *	**Case 3:** numberOfSides is divisible by 2, but not by 4.
-		height = sideLength(cos(π/numberOfSides))/(sin(π/numberOfSides))
-		width = sideLength /(sin(π/numberOfSides))
+
+*		height = sideLength(cos(π/numberOfSides))/(sin(π/numberOfSides))
+*		width = sideLength /(sin(π/numberOfSides))
 
 5. In PostScript, use showpage to finally draw the current page and create a new page.
