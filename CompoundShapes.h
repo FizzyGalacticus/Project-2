@@ -16,18 +16,50 @@ using std::vector;
 class CompoundShapes
 {
 public:
+    virtual string draw() = 0;
 private:
     vector<BasicShapes> _shapes;
 };
 
+template<typename Shape>
 class Rotated : public CompoundShapes
 {
+public:
+    Rotated(Shape shape, double rotationAngle):_shape(shape), _rotationAngle(rotationAngle)
+    {}
     
+    string draw()
+    {
+        string rotationAngle = to_string(_rotationAngle);
+        
+        return rotationAngle + " rotate \n" + _shape.draw;
+    }
+    
+private:
+    double _rotationAngle;
+    Shape _shape;
 };
 
+
+template<typename Shape>
 class Scaled : public CompoundShapes
 {
+public:
+    Scaled(Shape shape, double fx, double fy):_shape(shape), _fx(fx), _fy(fy)
+    {}
     
+    string draw()
+    {
+        string fx = to_string(_fx);
+        string fy = to_string(_fy);
+        
+        return fx + " " + fy + " scale \n" + _shape.draw;
+    }
+    
+private:
+    double _fx;
+    double _fy;
+    Shape _shape;
 };
 
 class Layered : public CompoundShapes
@@ -45,3 +77,4 @@ class Horizontal : public CompoundShapes
     
 };
 #endif /* defined(__CS372Project2__CompoundShapes__) */
+
