@@ -10,19 +10,19 @@ Project-2
 ## Description:
 	In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of:
 
-	..* A **shape language** that allows basic shapes such as squares, circles, and polygons to be defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
+	* A **shape language** that allows basic shapes such as squares, circles, and polygons to be defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
 
-	..* A **shapes-to-PostScript translator** that takes as input a drawing specified using CPS's shape language and produces a PostScript file from it.
+	* A **shapes-to-PostScript translator** that takes as input a drawing specified using CPS's shape language and produces a PostScript file from it.
 
 ## Specification
 ### Shape language
 The CPS shape language relies on the following fundamental notions:
 
-..* **Bounding box.** Every shape has a bounding box: an imaginary rectangle that encloses the shape. Bounding boxes are not drawn. The height (width) of a shape is the height (width) of its bounding box. Bounding boxes are shown below using dotted lines.
+* **Bounding box.** Every shape has a bounding box: an imaginary rectangle that encloses the shape. Bounding boxes are not drawn. The height (width) of a shape is the height (width) of its bounding box. Bounding boxes are shown below using dotted lines.
 
-..* **Current point.** The current point represents the coordinates of the current location of the cursor. In PostScript, these coordinates are given by the command currentpoint. A shape is drawn so that its bounding box is centered around the current point. The center of an bounding box is shown below as a small black circle.
+* **Current point.** The current point represents the coordinates of the current location of the cursor. In PostScript, these coordinates are given by the command currentpoint. A shape is drawn so that its bounding box is centered around the current point. The center of an bounding box is shown below as a small black circle.
 
-..* **Units.** Postscript's basic unit of measurement is 1/72 of an inch. When referring to lengths below (e.g. radius, width or height), we are assuming this measurement system. For example, if a shape has a height of 36, that means 36 units, which is 36/72 = 1/2 inch.
+* **Units.** Postscript's basic unit of measurement is 1/72 of an inch. When referring to lengths below (e.g. radius, width or height), we are assuming this measurement system. For example, if a shape has a height of 36, that means 36 units, which is 36/72 = 1/2 inch.
 
 CPS is based on a language of immutable shapes, that are either basic or compound.
 
@@ -44,19 +44,19 @@ Basic shapes are primitive shapes that can be created without reference to any o
 **Compound shapes**
 Compound shapes are shapes that are constructed from one or more other shapes, which may themselves be basic or compound.
 
-..* **Rotated(Shape shape, RotationAngle rotationAngle).** Takes a shape and a rotation angle, which is either 90, 180 or 270 degrees. Creates a version of the shape that is rotated counterclockwise by the specified number of degrees around the origin of its bounding box. If the rotation angle is 90 or 270 degrees, the height (width) of the resulting shape is equal to the width (height) of the original shape.
+* **Rotated(Shape shape, RotationAngle rotationAngle).** Takes a shape and a rotation angle, which is either 90, 180 or 270 degrees. Creates a version of the shape that is rotated counterclockwise by the specified number of degrees around the origin of its bounding box. If the rotation angle is 90 or 270 degrees, the height (width) of the resulting shape is equal to the width (height) of the original shape.
 
-..* **Scaled(Shape shape, double fx, double fy).** Takes a shape, a horizontal scaling factor fx, and a vertical scaling factor fy. Creates a version of the shape that is scaled horizontally and vertically by the given scaling factors.
+* **Scaled(Shape shape, double fx, double fy).** Takes a shape, a horizontal scaling factor fx, and a vertical scaling factor fy. Creates a version of the shape that is scaled horizontally and vertically by the given scaling factors.
 
-..* **Layered(Shape... shapes).** Given a collection of shapes, creates a new shape consisting of all the shapes drawn with their bounding boxes centered around the current point. The height and width of a layered shape is the maximum of the heights and widths of the component shapes.
+* **Layered(Shape... shapes).** Given a collection of shapes, creates a new shape consisting of all the shapes drawn with their bounding boxes centered around the current point. The height and width of a layered shape is the maximum of the heights and widths of the component shapes.
 
-..* **Vertical(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
+* **Vertical(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
 
 ⋅⋅1. Shape shapes[i+1]'s bounding box is located directly above the bounding box of shapes[i], and both bounding boxes are vertically aligned around their center.
 ⋅⋅2. The height of the resulting shape's bounding box is the sum of the heights of the component shapes.
 ⋅⋅3. The width of the resulting shape's bounding box is the maximum width of the widths of the component shapes.
 
-..* **Horizontal(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
+* **Horizontal(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
 
 ⋅⋅1. Shape shapes[i+1]'s bounding box is located next to (to the right of) the bounding box of shapes[i], and both bounding boxes are horizontally aligned around their center.
 ⋅⋅2. The width of the resulting shape's bounding box is the sum of the widths of the component shapes.
@@ -78,15 +78,15 @@ CPS lets the user translate any shape into a sequence of PostScript commands. Th
 3. When implementing a function that generates a PostScript program, it may be useful to (1) assume, on entry to each visiting method, that the point around which the shape is to be centered has already been correctly set; and (2) for basic shapes, to draw the shape by starting a new path, drawing, closing the path, and calling stroke; and (3) for some operation methods, to use gsave on entry and grestore before exit. These are only suggestions, however, and you might find a different (and maybe better) approach.
 4. The width and height of the bounding box for Polygon(n, e) is given by the following formulas:
 
-..*	Case 1: n is odd.
+*	Case 1: n is odd.
 	height = e(1+cos(π/n))/(2sin(π/n))
 	width = (e sin(π(n-1)/2n))/(sin(π/n))
 
-..*	Case 2: n is divisible by 4.
+*	Case 2: n is divisible by 4.
 	height = e(cos(π/n))/(sin(π/n))
 	width = (e cos(π/n))/(sin(π/n))
 
-..*	Case 3: n is divisible by 2, but not by 4.
+*	Case 3: n is divisible by 2, but not by 4.
 	height = e(cos(π/n))/(sin(π/n))
 	width = e/(sin(π/n))
 
