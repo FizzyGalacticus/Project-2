@@ -20,7 +20,7 @@ int main(int argc, const char * argv[])
     Circle myCircle(50);
     Spacer mySpacer(40, 50);
     
-    Polygon myPolygon(8, 100);
+    Polygon myPolygon(36, 50);
     
     Square mySquare(200);
     
@@ -29,14 +29,22 @@ int main(int argc, const char * argv[])
     out.open("postscript.ps",std::ios::app);
     if(out)
     {
-    	out << myRectangle.draw() << endl;
-    	out << "showpage" << endl;
-    	out << myPolygon.draw() << endl;
-    	out << "showpage" << endl;
-    	out << mySquare.draw() << endl;
-    	out << "showpage" << endl;
-    	out << myTriangle.draw() << endl;
-    	out << "showpage" << endl;
+    	// out << myRectangle.draw() << endl;
+    	// out << "showpage" << endl;
+    	out << Polygon(4,200).draw() << endl;
+    	out << "showpage\n" << endl;
+		out << Polygon(6,100).draw() << endl;
+    	out << "showpage\n" << endl;
+		out << Polygon(8,100).draw() << endl;
+    	out << "showpage\n" << endl;
+		out << Polygon(10,100).draw() << endl;
+    	out << "showpage\n" << endl;
+		out << Circle(100).draw() << endl;
+    	out << "showpage\n" << endl;
+    	// out << mySquare.draw() << endl;
+    	// out << "showpage" << endl;
+    	// out << myTriangle.draw() << endl;
+    	// out << "showpage" << endl;
     	out.close();
     }
     

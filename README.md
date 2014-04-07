@@ -8,7 +8,7 @@ Project-2
 	Eric P.
 
 ## Description:
-	In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of:
+In this project, you will implement a C++ library that we will call CPS, short for "C++ to PostScript." CPS will allow its user to specify drawings at a high level of abstraction, and output the drawings as PostScript. CPS consists of:
 * A **shape language** that allows basic shapes such as squares, circles, and polygons to be defined, rotated and scaled versions, and aggregate shapes, for example a vertical "stack".
 * A **shapes-to-PostScript translator** that takes as input a drawing specified using CPS's shape language and produces a PostScript file from it.
 
@@ -49,14 +49,14 @@ Compound shapes are shapes that are constructed from one or more other shapes, w
 * **Layered(Shape... shapes).** Given a collection of shapes, creates a new shape consisting of all the shapes drawn with their bounding boxes centered around the current point. The height and width of a layered shape is the maximum of the heights and widths of the component shapes.
 
 * **Vertical(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
-*		Shape shapes[i+1]'s bounding box is located directly above the bounding box of shapes[i], and both bounding boxes are vertically aligned around their center.
-*		The height of the resulting shape's bounding box is the sum of the heights of the component shapes.
-*		The width of the resulting shape's bounding box is the maximum width of the widths of the component shapes.
+*	Shape shapes[i+1]'s bounding box is located directly above the bounding box of shapes[i], and both bounding boxes are vertically aligned around their center.
+*	The height of the resulting shape's bounding box is the sum of the heights of the component shapes.
+*	The width of the resulting shape's bounding box is the maximum width of the widths of the component shapes.
 
 * **Horizontal(Shape... shapes).** Takes an ordered collection of shapes, and creates a shape structured as follows:
-*		Shape shapes[i+1]'s bounding box is located next to (to the right of) the bounding box of shapes[i], and both bounding boxes are horizontally aligned around their center.
-*		The width of the resulting shape's bounding box is the sum of the widths of the component shapes.
-*		The height of the resulting shape's bounding box is the maximum width of the heights of the component shapes.
+*	Shape shapes[i+1]'s bounding box is located next to (to the right of) the bounding box of shapes[i], and both bounding boxes are horizontally aligned around their center.
+*	The width of the resulting shape's bounding box is the sum of the widths of the component shapes.
+*	The height of the resulting shape's bounding box is the maximum width of the heights of the component shapes.
 
 ### CPS to PostScript translator
 CPS lets the user translate any shape into a sequence of PostScript commands. The user can specify the name of the resulting file. The resulting file is a legal PostScript file that can be previewed on screen or printed on paper.
