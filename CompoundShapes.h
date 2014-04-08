@@ -16,6 +16,7 @@ using std::vector;
 class CompoundShapes
 {
 public:
+    virtual ~CompoundShapes() {};
     virtual string draw() = 0;
 private:
     vector<BasicShapes> _shapes;
@@ -50,8 +51,10 @@ public:
     
     string draw()
     {
-        string fx = to_string(_fx);
-        string fy = to_string(_fy);
+        double width = _fx / _shape.getWidth();
+        double height = _fy / _shape.getHeight();
+        string fx = to_string(width);
+        string fy = to_string(height);
         
         return fx + " " + fy + " scale \n" + _shape.draw();
     }
@@ -64,7 +67,7 @@ private:
 
 class Layered : public CompoundShapes
 {
-    
+     
 };
 
 class Vertical : public CompoundShapes

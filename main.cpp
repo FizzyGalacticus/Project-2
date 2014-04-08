@@ -49,9 +49,15 @@ int main(int argc, const char * argv[])
 //    	// out << "showpage" << endl;
 //    	out << myTriangle.draw() << endl;
 //    	// out << "showpage" << endl;
-        Polygon myPolygon(16, 100);
-        out << Scaled<Polygon>(myPolygon, 2, 2).draw()<<endl;
-    	out.close();
+        Polygon myPolygon(16, 200);
+        out << Scaled<Polygon>(myPolygon, 150 , 70).draw()<<endl;
+        out << "showpage" <<endl;
+//    	for(auto i = 1; i <= 40; i++)
+//        {
+//            out << Polygon(i, 20).draw() <<endl;
+//            out << "showpage" << endl;
+//        }
+        out.close();
     }
     else
         cout<<"File not open"<<endl;
