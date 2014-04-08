@@ -46,20 +46,20 @@ private:
 class Polygon : public BasicShapes
 {
 public:
-    Polygon(int numSides, double sideLength):_numberOfSides(numSides), _sideLength(sideLength)
+    Polygon(double numSides, double sideLength):_numberOfSides(numSides), _sideLength(sideLength)
     {}
     
     string draw()
     {
         double height;
         double width;
-        if(_numberOfSides % 2 == 1)
+        if(fmod(_numberOfSides, 2) == 1)
         {
             height = _sideLength*(1+cos(M_PI/_numberOfSides))/(2*sin(M_PI/_numberOfSides));
-            width = (_sideLength * sin(M_PI*(_numberOfSides-1)/2*_numberOfSides))/(sin(M_PI/_numberOfSides));
+            width = (_sideLength * sin(M_PI*(_numberOfSides-1)/(2*_numberOfSides)))/(sin(M_PI/_numberOfSides));
             std::cout<<"The width of the triangle "<<width<<std::endl;
         }
-        else if (_numberOfSides % 4 == 0)
+        else if(fmod(_numberOfSides, 4) == 0)
         {
             height = _sideLength*(cos(M_PI/_numberOfSides))/(sin(M_PI/_numberOfSides));
             width = (_sideLength*cos(M_PI/_numberOfSides))/(sin(M_PI/_numberOfSides));
@@ -88,7 +88,7 @@ public:
     }
     
 private:
-    int _numberOfSides;
+    double _numberOfSides;
     double _sideLength;
 };
 

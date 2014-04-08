@@ -9,6 +9,7 @@
 using std::cout;
 using std::endl;
 #include "BasicShapes.h"
+#include "CompoundShapes.h"
 #include <fstream>
 using std::ofstream;
 
@@ -26,27 +27,34 @@ int main(int argc, const char * argv[])
     
     Triangle myTriangle(300);
     
-    out.open("postscript.ps",std::ios::app);
+    out.open("/Users/cs/Desktop/Software Construction/Project 2/Project 2/postscript.ps",std::ios::app);
     if(out)
     {
-    	// out << myRectangle.draw() << endl;
-    	// out << "showpage" << endl;
-    	out << Polygon(4,200).draw() << endl;
-    	out << "showpage\n" << endl;
-		out << Polygon(6,100).draw() << endl;
-    	out << "showpage\n" << endl;
-		out << Polygon(8,100).draw() << endl;
-    	out << "showpage\n" << endl;
-		out << Polygon(10,100).draw() << endl;
-    	out << "showpage\n" << endl;
-		out << Circle(100).draw() << endl;
-    	out << "showpage\n" << endl;
-    	// out << mySquare.draw() << endl;
-    	// out << "showpage" << endl;
-    	// out << myTriangle.draw() << endl;
-    	// out << "showpage" << endl;
+        cout<<"File open"<<endl;
+//    	// out << myRectangle.draw() << endl;
+//    	// out << "showpage" << endl;
+//    	out << Polygon(4,200).draw() << endl;
+//    	out << "showpage\n" << endl;
+//		out << Polygon(16,100).draw() << endl;
+//    	out << "showpage\n" << endl;
+//		out << Polygon(8,100).draw() << endl;
+//    	out << "showpage\n" << endl;
+//        out << Polygon(31, 10).draw() << endl;
+//        out << "showpage\n" << endl;
+//		out << Polygon(10,100).draw() << endl;
+//    	out << "showpage\n" << endl;
+//		out << Circle(100).draw() << endl;
+//    	out << "showpage\n" << endl;
+//    	// out << mySquare.draw() << endl;
+//    	// out << "showpage" << endl;
+//    	out << myTriangle.draw() << endl;
+//    	// out << "showpage" << endl;
+        Polygon myPolygon(16, 100);
+        out << Scaled<Polygon>(myPolygon, 2, 2).draw()<<endl;
     	out.close();
     }
+    else
+        cout<<"File not open"<<endl;
     
     return 0;
 }

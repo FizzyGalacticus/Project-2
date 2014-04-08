@@ -53,7 +53,7 @@ public:
         string fx = to_string(_fx);
         string fy = to_string(_fy);
         
-        return fx + " " + fy + " scale \n" + _shape.draw;
+        return fx + " " + fy + " scale \n" + _shape.draw();
     }
     
 private:
