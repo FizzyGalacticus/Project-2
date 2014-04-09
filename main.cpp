@@ -49,15 +49,25 @@ int main(int argc, const char * argv[])
 //    	// out << "showpage" << endl;
 //    	out << myTriangle.draw() << endl;
 //    	// out << "showpage" << endl;
-        Polygon myPolygon(16, 200);
-        out << Scaled<Polygon>(myPolygon, 150 , 70).draw()<<endl;
-        out << "showpage" <<endl;
+//        Polygon myPolygon(16, 200);
+//        out << Scaled(&myPolygon, 40, 60).draw();
+//        out << "showpage" <<endl;
 //    	for(auto i = 1; i <= 40; i++)
 //        {
 //            out << Polygon(i, 20).draw() <<endl;
 //            out << "showpage" << endl;
 //        }
-        out.close();
+
+        
+        vector<BasicShapes *>  myshapes = {&myTriangle, &myRectangle, &myTriangle};
+        out << Horizontal(myshapes).draw()<<endl;
+//        Polygon myPolygon(3, 70);
+//        
+//        for(auto i = 0; i < 360; i+=90)
+//            out << Rotated(&myPolygon, i).draw()<<endl;
+        
+    
+        
     }
     else
         cout<<"File not open"<<endl;

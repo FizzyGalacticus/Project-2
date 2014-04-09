@@ -48,7 +48,7 @@ public:
         string leftSide = "0 " + height + " rlineto \n";
         string top = width + " 0 rlineto \n";
         string rightSide = "0 -" + height + " rlineto \n";
-        return "newpath\n0 0 moveto\n" + leftSide + top + rightSide + "closepath\nstroke";
+        return "newpath\n0 0 moveto\n" + leftSide + top + rightSide + "closepath\nstroke\n";
     }
 private:
     double _height;
@@ -150,7 +150,7 @@ public:
     
     double getWidth()
     {
-        return Polygon(3, _sideLength).getHeight();
+        return Polygon(3, _sideLength).getWidth();
     }
     
     string draw()
