@@ -2,8 +2,6 @@
 //  main.cpp
 //  Software Construction
 //  Project 1
-//
-//
 
 #include <iostream>
 using std::cout;
@@ -13,65 +11,41 @@ using std::endl;
 #include <fstream>
 using std::ofstream;
 
+const double inches(const double & numberOfInches) {return numberOfInches * 72;}
+
 int main(int argc, const char * argv[])
 {
 	ofstream out;
+
+	Rectangle myRectangle(40, 50);
+	Circle myCircle(50);
+	Spacer mySpacer(40, 50);
+
+	Polygon myPolygon(13, 50);
+
+	Square mySquare(200);
+
+	Triangle myTriangle(inches(1));
 	
-    Rectangle myRectangle(40, 50);
-    Circle myCircle(50);
-    Spacer mySpacer(40, 50);
-    
-    Polygon myPolygon(36, 50);
-    
-    Square mySquare(200);
-    
-    Triangle myTriangle(300);
-    
-    out.open("/Users/cs/Desktop/Software Construction/Project 2/Project 2/postscript.ps",std::ios::app);
+	Rotated myRotated(&myTriangle,180);
+	vector<BasicShapes *>  layeredshapes = {&myRotated, &myTriangle},
+	myshapes = {&myTriangle, &myRectangle, &myCircle};
+	Layered myLayered(layeredshapes);
+	Horizontal myHorizontal(myshapes);
+	vector<BasicShapes *> stacks = {&myHorizontal, &myHorizontal, &myPolygon};
+
+	out.open("postscript.ps",std::ios::app);
     if(out)
     {
-        cout<<"File open"<<endl;
-//    	// out << myRectangle.draw() << endl;
-//    	// out << "showpage" << endl;
-//    	out << Polygon(4,200).draw() << endl;
-//    	out << "showpage\n" << endl;
-//		out << Polygon(16,100).draw() << endl;
-//    	out << "showpage\n" << endl;
-//		out << Polygon(8,100).draw() << endl;
-//    	out << "showpage\n" << endl;
-//        out << Polygon(31, 10).draw() << endl;
-//        out << "showpage\n" << endl;
-//		out << Polygon(10,100).draw() << endl;
-//    	out << "showpage\n" << endl;
-//		out << Circle(100).draw() << endl;
-//    	out << "showpage\n" << endl;
-//    	// out << mySquare.draw() << endl;
-//    	// out << "showpage" << endl;
-//    	out << myTriangle.draw() << endl;
-//    	// out << "showpage" << endl;
-//        Polygon myPolygon(16, 200);
-//        out << Scaled(&myPolygon, 40, 60).draw();
-//        out << "showpage" <<endl;
-//    	for(auto i = 1; i <= 40; i++)
-//        {
-//            out << Polygon(i, 20).draw() <<endl;
-//            out << "showpage" << endl;
-//        }
-
-        
-        vector<BasicShapes *>  myshapes = {&myTriangle, &myRectangle, &myTriangle};
-        out << Horizontal(myshapes).draw()<<endl;
-//        Polygon myPolygon(3, 70);
-//        
-//        for(auto i = 0; i < 360; i+=90)
-//            out << Rotated(&myPolygon, i).draw()<<endl;
-        
-    
-        
+		out << Vertical(stacks).draw();
+		out << "showpage" << endl;
+		out << "%****************************************%" << endl;
+		out << myLayered.draw();
+		out << "showpage" << endl;
+		out << "%****************************************%" << endl;
     }
-    else
-        cout<<"File not open"<<endl;
-    
-    return 0;
+	else cout<<"Could not open file"<<endl;
+
+	return 0;
 }
 

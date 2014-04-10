@@ -21,8 +21,8 @@ class BasicShapes
 public:
     virtual ~BasicShapes() {};
     virtual string draw() = 0;
-    virtual double getHeight() = 0;
-    virtual double getWidth() = 0;
+    virtual const double & getHeight() const = 0;
+    virtual const double & getWidth() const = 0;
     
 };
 
@@ -31,12 +31,12 @@ class Rectangle : public BasicShapes
 public:
     Rectangle(double width, double height):_width(width), _height(height){}
     
-    double getHeight()
+    const double & getHeight() const 
     {
         return _height;
     }
     
-    double getWidth()
+    const double & getWidth() const 
     {
         return _width;
     }
@@ -79,12 +79,12 @@ public:
         }
     }
     
-    double getHeight()
+    const double & getHeight() const 
     {
         return _height;
     }
     
-    double getWidth()
+    const double & getWidth() const 
     {
         return _width;
     }
@@ -92,19 +92,19 @@ public:
     string draw()
     {
         string sideLength = to_string(_sideLength);
-        string numberOfSides = to_string(_numberOfSides);
+        string numberOfSides = to_string(int(_numberOfSides));
         
         double rotationalVariable = 180 - (((_numberOfSides - 2) * 180) /_numberOfSides);
         
         
         double startingPos = (_width - _sideLength)/2;
         string start = "newpath\n";
-        string translate = to_string(startingPos) + " 0 translate \n";
+        string translate = to_string(int(startingPos)) + " 0 translate \n";
         string drawPolygon = "0 1 " + numberOfSides + "{\n0 0 moveto\n" +
             sideLength + " 0 lineto\ncurrentpoint translate\n" +
             to_string(rotationalVariable) + " rotate\n}for \nstroke \n";
         
-        return "gsave \n" + start + translate + drawPolygon + "grestore \n";
+        return "gsave \n" + start + translate + drawPolygon + "grestore \n\n";
     }
     
 private:
@@ -119,12 +119,12 @@ class Square : public BasicShapes
 public:
     Square(double sideLength):_sideLength(sideLength) {}
     
-    double getHeight()
+    const double & getHeight() const 
     {
         return Polygon(4, _sideLength).getHeight();
     }
     
-    double getWidth()
+    const double & getWidth() const 
     {
         return Polygon(4, _sideLength).getHeight();
     }
@@ -143,12 +143,12 @@ class Triangle : public BasicShapes
 public:
     Triangle(double sideLength):_sideLength(sideLength) {}
     
-    double getHeight()
+    const double & getHeight() const 
     {
         return Polygon(3, _sideLength).getHeight();
     }
     
-    double getWidth()
+    const double & getWidth() const 
     {
         return Polygon(3, _sideLength).getWidth();
     }
@@ -166,12 +166,12 @@ class Spacer : public BasicShapes
 public:
     Spacer(double width, double height):_width(width), _height(height){}
     
-    double getHeight()
+    const double & getHeight() const 
     {
         return _height;
     }
     
-    double getWidth()
+    const double & getWidth() const 
     {
         return _width;
     }
@@ -195,14 +195,14 @@ class Circle : public BasicShapes
 {
 public:
     Circle(double radius):_radius(radius){}
-    double getHeight()
+    const double & getHeight() const 
     {
         return _radius*2;
     }
     
-    double getWidth()
+    const double & getWidth() const 
     {
-        return _radius*2;
+        return getHeight();
     }
     string draw()
     {
