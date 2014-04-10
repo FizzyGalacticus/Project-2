@@ -180,45 +180,19 @@ public:
     
     string draw()
     {
-        string translatePos;
-        string drawShapes;
-        double widthOfLargestShape = 0;
-        double heightOfLargestShape = 0;
-        double middleWidthOfLargestShape = 0;
-        double middleHeightOfLargestShape = 0;
-        const string comment = "% Vertical shapes\n";
-        
-        for(auto i : _shapes)
-        {
-            if(i->getWidth() > widthOfLargestShape)
-            {
-                widthOfLargestShape = i->getWidth();
-                middleWidthOfLargestShape = i->getWidth()/2;
-                
-            }
-            if(i->getHeight() > heightOfLargestShape)
-            {
-                heightOfLargestShape = i->getWidth();
-                middleHeightOfLargestShape = i->getWidth()/2;
-            }
-            
-        }
-        
-        double previousHeight = 0;
-        
-        for(auto i : _shapes)
-        {
-            double middleWidthOfShape = i->getWidth()/2;
-            double posX = middleWidthOfLargestShape - middleWidthOfShape;
-            translatePos = "gsave \n" + to_string(posX) + " " + to_string(previousHeight) + " translate \n" +
-            i->draw() + "grestore \n";
-            
-            drawShapes += translatePos;
-            previousHeight += i->getHeight();
-        }
-        
-        return drawShapes;
-        
+    	string drawString;
+    	double currentHeight = 0;
+    	for(auto i : _shapes)
+    	{
+    		drawString += ("gsave\n" + to_string(int((_width/2)-(i->getWidth()/2))) +
+    			" " + to_string(int(currentHeight)) + " translate\n");
+			drawString += i->draw();
+			drawString += "grestore\n\n";
+			
+			currentHeight += i->getHeight();
+    	}
+    	
+    	return drawString;
     }
     
 	const double & getHeight() const {return _height;}
@@ -242,45 +216,20 @@ public:
     
 	string draw()
     {
-        string translatePos;
-        string drawShapes;
-        double widthOfLargestShape = 0;
-        double heightOfLargestShape = 0;
-        double middleWidthOfLargestShape = 0;
-        double middleHeightOfLargestShape = 0;
-        const string comment = "% Horizontal shapes\n";
-        
-        for(auto i : _shapes)
-        {
-            if(i->getWidth() > widthOfLargestShape)
-            {
-                widthOfLargestShape = i->getWidth();
-                middleWidthOfLargestShape = i->getWidth()/2;
-                
-            }
-            if(i->getHeight() > heightOfLargestShape)
-            {
-                heightOfLargestShape = i->getWidth();
-                middleHeightOfLargestShape = i->getWidth()/2;
-            }
-            
-        }
-        
-        double previousWidth = 0;
-        
-        for(auto i : _shapes)
-        {
-            double middleHeightOfShape = i->getHeight()/2;
-            double posY = middleHeightOfLargestShape - middleHeightOfShape;
-            translatePos = "gsave \n" + to_string(previousWidth) + " " + to_string(posY) + " translate \n" +
-            i->draw() + "grestore \n";
-            
-            drawShapes += translatePos;
-            previousWidth += i->getWidth();
-        }
-        
-        return drawShapes;
-        
+    	string drawString;
+    	double currentWidth = 0;
+    	for(auto i : _shapes)
+    	{
+    		drawString += ("gsave\n" + to_string(int(currentWidth)) +
+    			" " + to_string(int((_height/2)-(i->getHeight()/2))) +
+    			" translate\n");
+			drawString += i->draw();
+			drawString += "grestore\n\n";
+			
+			currentWidth += i->getWidth();
+    	}
+    	
+    	return drawString;
     }
     
     const double & getHeight() const {return _height;}

@@ -13,19 +13,18 @@ using std::ofstream;
 
 const double inches(const double & numberOfInches) {return numberOfInches * 72;}
 
-int main(int argc, const char * argv[])
+void writeTests(ofstream & out)
 {
-	ofstream out;
-
+	const string nextSection = "showpage\n%****************************************%\n";
 	Rectangle myRectangle(40, 50);
-	Circle myCircle(50);
+	Circle myCircle(30);
 	Spacer mySpacer(40, 50);
 
 	Polygon myPolygon(13, 50);
 
 	Square mySquare(200);
 
-	Triangle myTriangle(inches(1));
+	Triangle myTriangle(inches(4));
 	
 	Rotated myRotated(&myTriangle,180);
 	vector<BasicShapes *>  layeredshapes = {&myRotated, &myTriangle},
@@ -33,18 +32,37 @@ int main(int argc, const char * argv[])
 	Layered myLayered(layeredshapes);
 	Horizontal myHorizontal(myshapes);
 	vector<BasicShapes *> stacks = {&myHorizontal, &myHorizontal, &myPolygon};
+	
+	out << myTriangle.draw();
+	out << "gsave\n" << (myTriangle.getWidth()/2)-(myCircle.getWidth()/2) << " " << myTriangle.getHeight() << " translate" << endl;
+	out << myCircle.draw();
+	out << "grestore\n" << endl;
+	out << nextSection;
+	out << Horizontal(myshapes).draw();
+}
 
-	out.open("postscript.ps",std::ios::app);
-    if(out)
-    {
-		out << Vertical(stacks).draw();
-		out << "showpage" << endl;
-		out << "%****************************************%" << endl;
-		out << myLayered.draw();
-		out << "showpage" << endl;
-		out << "%****************************************%" << endl;
-    }
-	else cout<<"Could not open file"<<endl;
+int main(int argc, const char * argv[])
+{
+	ofstream out;
+
+	if(argc > 1)
+	{
+		out.open(argv[1],std::ios::out);
+		if(out)
+		{
+			writeTests(out);
+		}
+		else cout<<"Could not open file"<<endl;
+	}
+	else
+	{
+		out.open("postscript.ps",std::ios::out);
+		if(out)
+		{
+			writeTests(out);
+		}
+		else cout<<"Could not open file"<<endl;
+	}
 
 	return 0;
 }
