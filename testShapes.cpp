@@ -47,10 +47,11 @@ void titlePage()
 vector<shared_ptr<Shapes>> createBasicShapes()
 {
 	vector<shared_ptr<Shapes>> basicShapes;
-	basicShapes.push_back(make_shared<Triangle>(Triangle(inches(3))));
-	basicShapes.push_back(make_shared<Square>(Square(inches(3))));
-	basicShapes.push_back(make_shared<Rectangle>(Rectangle(inches(3), inches(5))));
-	basicShapes.push_back(make_shared<Circle>(Circle(inches(1.5))));
+	basicShapes.push_back(make_shared<Triangle>(inches(3)));
+	basicShapes.push_back(make_shared<Square>(inches(3)));
+	basicShapes.push_back(make_shared<Rectangle>(inches(3), inches(5)));
+	basicShapes.push_back(make_shared<Circle>(inches(1.5)));
+	basicShapes.push_back(make_shared<Star>(inches(3.5), inches(3)));
 	basicShapes.push_back(make_shared<Vertical>(basicShapes));
 	basicShapes.push_back(make_shared<Horizontal>(basicShapes));
 	

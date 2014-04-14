@@ -107,5 +107,37 @@ public:
 private:
     vector<shared_ptr<Shapes>> _shapes;
 };
+
+class Star : public Shapes
+{
+	public:
+		Star(const double width, const double height) : _width(width), _height(height) {}
+		const double & getHeight() const {return _height;}
+    	const double & getWidth() const {return _width;}
+    	string draw()
+    	{
+    		string drawString = "gsave\n";
+    		
+    		Triangle myTriangle(300);
+    		Rotated upSideDownTriangle(make_shared<Triangle>(myTriangle), 180);
+    		
+    		string widthFraction =
+    			to_string(_width/myTriangle.getWidth());
+    		string heightFraction =
+    			to_string(_height/myTriangle.getHeight());
+    
+    		drawString += widthFraction + " " + heightFraction + " scale\n";
+    		
+    		drawString += upSideDownTriangle.draw();
+    		drawString +=
+    			"0 " + to_string(myTriangle.getHeight()/3) +
+    			" translate\n";
+    		drawString += myTriangle.draw();
+    		
+    		return (drawString + "grestore\n");
+    	}
+	private:
+		double _width, _height;
+};
 #endif /* defined(__CS372Project2__CompoundShapes__) */
 
