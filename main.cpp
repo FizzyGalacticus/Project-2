@@ -75,12 +75,7 @@ void writeTests(ofstream & out)
     for(double i = 600.0; i >= 30.0; i-=2)
     {
         Resize scaledShape(make_shared<Layered>(star), i, i);
-        cout << scaledShape.getWidth() << endl;
-        cout << scaledShape.getHeight() << endl;
         Rotated rotatedShape(make_shared<Resize>(scaledShape), fmod(i,90.0));
-        cout << rotatedShape.getWidth() << endl;
-        cout << rotatedShape.getHeight() << endl;
-        
         colShapes.push_back(make_shared<Rotated>(rotatedShape));
         
     }
