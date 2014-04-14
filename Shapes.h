@@ -1,13 +1,13 @@
 //
-//  BasicShapes.h
+//  Shapes.h
 //  CS372Project2
 //
 //  Created by CS on 4/6/14.
 //  Copyright (c) 2014 Computer Science. All rights reserved.
 //
 
-#ifndef __CS372Project2__BasicShapes__
-#define __CS372Project2__BasicShapes__
+#ifndef __CS372Project2__Shapes__
+#define __CS372Project2__Shapes__
 
 #include <iostream>
 #include <string>
@@ -15,17 +15,17 @@
 using std::string;
 using std::to_string;
 
-class BasicShapes
+class Shapes
 {
 public:
-    virtual ~BasicShapes();
+    virtual ~Shapes();
     virtual string draw() = 0;
     virtual const double & getHeight() const = 0;
     virtual const double & getWidth() const = 0;
     
 };
 
-class Rectangle : public BasicShapes
+class Rectangle : public Shapes
 {
 public:
     Rectangle(double width, double height);
@@ -37,7 +37,7 @@ private:
     double _width;
     
 };
-class Polygon : public BasicShapes
+class Polygon : public Shapes
 {
 public:
     virtual ~Polygon();
@@ -52,7 +52,7 @@ private:
     double _sideLength;
 };
 
-class Square : public BasicShapes
+class Square : public Shapes
 {
 public:
     Square(double sideLength);
@@ -64,7 +64,7 @@ private:
     double _sideLength;
 };
 
-class Triangle : public BasicShapes
+class Triangle : public Shapes
 {
 public:
     Triangle(double sideLength);
@@ -75,7 +75,7 @@ private:
     double _sideLength;
 };
 
-class Spacer : public BasicShapes
+class Spacer : public Shapes
 {
 public:
     Spacer(double width, double height);
@@ -87,7 +87,7 @@ private:
     double _width;
     
 };
-class Circle : public BasicShapes
+class Circle : public Shapes
 {
 public:
     Circle(double radius);
@@ -97,4 +97,4 @@ public:
 private:
     double _radius;
 };
-#endif /* defined(__CS372Project2__BasicShapes__) */
+#endif /* defined(__CS372Project2__Shapes__) */

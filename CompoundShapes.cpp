@@ -12,7 +12,7 @@ CompoundShapes::CompoundShapes() : _height(0), _width(0) {}
 
 CompoundShapes::~CompoundShapes() {};
 
-Rotated::Rotated(shared_ptr<BasicShapes> shape, double rotationAngle):_shape(shape), _rotationAngle(rotationAngle)
+Rotated::Rotated(shared_ptr<Shapes> shape, double rotationAngle):_shape(shape), _rotationAngle(rotationAngle)
 {
     if(_rotationAngle == 90 || _rotationAngle == 270)
     {
@@ -46,7 +46,7 @@ string Rotated::draw()
 const double & Rotated::getHeight() const {return _height;}
 const double & Rotated::getWidth() const {return _width;}
 
-Scaled::Scaled(shared_ptr<BasicShapes> shape, double fx, double fy):_shape(shape), _fx(fx), _fy(fy)
+Scaled::Scaled(shared_ptr<Shapes> shape, double fx, double fy):_shape(shape), _fx(fx), _fy(fy)
 {
     _width = _fx * _shape->getWidth();
     _height = _fy * _shape->getHeight();
@@ -65,7 +65,7 @@ string Scaled::draw()
 const double & Scaled::getHeight() const {return _height;}
 const double & Scaled::getWidth() const {return _width;}
 
-Resize::Resize(shared_ptr<BasicShapes> shape, double fx, double fy):_shape(shape)
+Resize::Resize(shared_ptr<Shapes> shape, double fx, double fy):_shape(shape)
 {
     _width = fx;
     _height = fy;
@@ -84,7 +84,7 @@ string Resize::draw()
 const double & Resize::getHeight() const {return _width;}
 const double & Resize::getWidth() const {return _height;}
 
-Layered::Layered(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
+Layered::Layered(vector<shared_ptr<Shapes>> shapes):_shapes(shapes)
 {
     for(auto i : shapes)
     {
@@ -139,7 +139,7 @@ string Layered::draw()
 const double & Layered::getHeight() const {return _height;}
 const double & Layered::getWidth() const {return _width;}
 
-Vertical::Vertical(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
+Vertical::Vertical(vector<shared_ptr<Shapes>> shapes):_shapes(shapes)
 {
     for(auto i : shapes)
     {
@@ -168,7 +168,7 @@ string Vertical::draw()
 const double & Vertical::getHeight() const {return _height;}
 const double & Vertical::getWidth() const {return _width;}
 
-Horizontal::Horizontal(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
+Horizontal::Horizontal(vector<shared_ptr<Shapes>> shapes):_shapes(shapes)
 {
     for(auto i : shapes)
     {

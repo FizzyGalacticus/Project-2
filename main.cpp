@@ -6,7 +6,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
-#include "BasicShapes.h"
+#include "Shapes.h"
 #include "CompoundShapes.h"
 #include <fstream>
 using std::ofstream;
@@ -28,11 +28,11 @@ void writeTests(ofstream & out)
 //	Circle myCircle(myTriangle.getHeight()/2);
 //	
 //	Rotated myRotated(make_shared<Triangle>(myTriangle),180);
-//	vector<shared_ptr<BasicShapes>>  layeredshapes = {make_shared<Rotated>(myRotated), make_shared<Triangle>(myTriangle)},
+//	vector<shared_ptr<Shapes>>  layeredshapes = {make_shared<Rotated>(myRotated), make_shared<Triangle>(myTriangle)},
 //        myshapes = {make_shared<Triangle>(myTriangle), make_shared<Rectangle>(myRectangle), make_shared<Circle>(myCircle)};
 //	Layered myLayered(layeredshapes);
 //	Horizontal myHorizontal(myshapes);
-//	vector<BasicShapes *> stacks = {&myHorizontal, &myHorizontal, &myPolygon};
+//	vector<Shapes *> stacks = {&myHorizontal, &myHorizontal, &myPolygon};
 //	
 //	out << myTriangle.draw();
 //	out << "gsave\n" << (myTriangle.getWidth()/2)-(myCircle.getWidth()/2) << " " << myTriangle.getHeight() << " translate" << endl;
@@ -41,7 +41,7 @@ void writeTests(ofstream & out)
 //	out << nextSection;
 //	out << Horizontal(myshapes).draw();
     
-    vector<shared_ptr<BasicShapes>> myShapes;
+    vector<shared_ptr<Shapes>> myShapes;
     
     for(auto i = 100; i >= 3; i-=2)
     {
@@ -59,13 +59,13 @@ void writeTests(ofstream & out)
     out << scaledShapes.draw();
     out << "showpage"<<endl;
     
-    vector<shared_ptr<BasicShapes>> colShapes;
+    vector<shared_ptr<Shapes>> colShapes;
     
     Triangle myTriangle(700);
     
     Rotated bottomTriangle(make_shared<Triangle>(myTriangle), 180);
     
-    vector<shared_ptr<BasicShapes>> originalShape = {make_shared<Rotated>(bottomTriangle), make_shared<Triangle>(myTriangle)};
+    vector<shared_ptr<Shapes>> originalShape = {make_shared<Rotated>(bottomTriangle), make_shared<Triangle>(myTriangle)};
     
     Layered star(originalShape);
     

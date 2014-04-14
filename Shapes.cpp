@@ -1,14 +1,14 @@
 //
-//  BasicShapes.cpp
+//  Shapes.cpp
 //  CS372Project2
 //
 //  Created by CS on 4/6/14.
 //  Copyright (c) 2014 Computer Science. All rights reserved.
 //
 
-#include "BasicShapes.h"
+#include "Shapes.h"
 
-BasicShapes::~BasicShapes(){};
+Shapes::~Shapes(){};
 
 Rectangle::Rectangle(double width, double height):_width(width), _height(height){}
 
