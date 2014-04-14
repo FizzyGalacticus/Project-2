@@ -51,6 +51,8 @@ vector<shared_ptr<Shapes>> createBasicShapes()
 	basicShapes.push_back(make_shared<Square>(Square(inches(3))));
 	basicShapes.push_back(make_shared<Rectangle>(Rectangle(inches(3), inches(5))));
 	basicShapes.push_back(make_shared<Circle>(Circle(inches(1.5))));
+	basicShapes.push_back(make_shared<Vertical>(basicShapes));
+	basicShapes.push_back(make_shared<Horizontal>(basicShapes));
 	
 	return basicShapes;
 }
@@ -64,9 +66,10 @@ vector< vector< shared_ptr<Shapes > > > createCompoundShapes(const vector<shared
 		vector< shared_ptr<Shapes > > temp;
 		
 		temp.push_back(i);
-		temp.push_back(make_shared<Rotated>(Rotated(i, 90)));
-		temp.push_back(make_shared<Rotated>(Rotated(i, 180)));
-		temp.push_back(make_shared<Rotated>(Rotated(i, 270)));
+		temp.push_back(make_shared<Rotated>(i, 90));
+		temp.push_back(make_shared<Rotated>(i, 180));
+		temp.push_back(make_shared<Rotated>(i, 270));
+		temp.push_back(make_shared<Scaled>(i , .5, .5));
 		
 		allShapes.push_back(temp);
 	}

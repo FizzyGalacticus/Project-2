@@ -55,11 +55,11 @@ Scaled::Scaled(shared_ptr<Shapes> shape, double fx, double fy):_shape(shape), _f
 Scaled::~Scaled(){};
 string Scaled::draw()
 {
-    string fx = to_string(_width);
-    string fy = to_string(_height);
+    string xScale = to_string(_width/_shape->getWidth());
+    string yScale = to_string(_height/_shape->getHeight());
     const string comment = "% Scaled shape\n";
     
-    return comment + fx + " " + fy + " scale \n" + _shape->draw();
+    return comment + xScale + " " + yScale + " scale \n" + _shape->draw();
 }
 
 const double & Scaled::getHeight() const {return _height;}
