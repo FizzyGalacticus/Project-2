@@ -25,7 +25,7 @@ public:
     virtual const double & getHeight() const = 0;
     virtual const double & getWidth() const = 0;
 protected:
-    vector<BasicShapes *> _shapes;
+    vector<shared_ptr<BasicShapes>> _shapes;
     double _height, _width;
 };
 
@@ -33,7 +33,7 @@ protected:
 class Rotated : public CompoundShapes
 {
 public:
-    Rotated(BasicShapes* shape, double rotationAngle):_shape(shape), _rotationAngle(rotationAngle)
+    Rotated(shared_ptr<BasicShapes> shape, double rotationAngle):_shape(shape), _rotationAngle(rotationAngle)
     {
         if(_rotationAngle == 90 || _rotationAngle == 270)
         {
@@ -69,7 +69,7 @@ public:
     
 private:
     double _rotationAngle;
-    BasicShapes* _shape;
+    shared_ptr<BasicShapes> _shape;
     double _width;
     double _height;
 };
@@ -78,7 +78,7 @@ private:
 class Scaled : public CompoundShapes
 {
 public:
-    Scaled(BasicShapes* shape, double fx, double fy):_shape(shape), _fx(fx), _fy(fy)
+    Scaled(shared_ptr<BasicShapes> shape, double fx, double fy):_shape(shape), _fx(fx), _fy(fy)
     {
     	_width = _fx / _shape->getWidth();
         _height = _fy / _shape->getHeight();
@@ -100,17 +100,20 @@ public:
 private:
     double _fx;
     double _fy;
-    BasicShapes* _shape;
+    shared_ptr<BasicShapes> _shape;
 };
 
 
 class Layered : public CompoundShapes
 {
 public:
-    Layered(vector<BasicShapes*> shapes):_shapes(shapes)
+    Layered(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
     {
+
+        std::cout<<_height<<std::endl;
     	for(auto i : shapes)
     	{
+            std::cout<<i->getHeight()<<std::endl;
     		if(i->getHeight() > _height) _height = i->getHeight();
     		if(i->getWidth() > _width) _width = i->getWidth();
     	}
@@ -163,13 +166,13 @@ public:
 	const double & getWidth() const {return _width;}
     
 private:
-    vector<BasicShapes *> _shapes;
+    vector<shared_ptr<BasicShapes>> _shapes;
 };
 
 class Vertical : public CompoundShapes
 {
 public:
-    Vertical(vector<BasicShapes*> shapes):_shapes(shapes)
+    Vertical(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
     {
     	for(auto i : shapes)
     	{
@@ -199,13 +202,13 @@ public:
 	const double & getWidth() const {return _width;}
 	
 private:
-    vector<BasicShapes *> _shapes;
+    vector<shared_ptr<BasicShapes>> _shapes;
 };
 
 class Horizontal : public CompoundShapes
 {
 public:
-    Horizontal(vector<BasicShapes*> shapes):_shapes(shapes)
+    Horizontal(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
     {
     	for(auto i : shapes)
     	{
@@ -236,7 +239,7 @@ public:
 	const double & getWidth() const {return _width;}
 	
 private:
-    vector<BasicShapes *> _shapes;
+    vector<shared_ptr<BasicShapes>> _shapes;
 };
 #endif /* defined(__CS372Project2__CompoundShapes__) */
 
