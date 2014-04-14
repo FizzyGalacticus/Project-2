@@ -54,12 +54,54 @@ void writeTests(ofstream & out)
     
     Layered myLayeredShapes(myShapes);
     
-    Scaled scaledShapes(make_shared<Layered>(myLayeredShapes), inches(8.5), inches(11));
+    Resize scaledShapes(make_shared<Layered>(myLayeredShapes), inches(8.5), inches(11));
     
     out << scaledShapes.draw();
     out << "showpage"<<endl;
     
-//    vector<shared_ptr<BasicShapes>> colShapes;
+    vector<shared_ptr<BasicShapes>> colShapes;
+    
+    Triangle myTriangle(700);
+    
+    Rotated bottomTriangle(make_shared<Triangle>(myTriangle), 180);
+    
+    vector<shared_ptr<BasicShapes>> originalShape = {make_shared<Rotated>(bottomTriangle), make_shared<Triangle>(myTriangle)};
+    
+    Layered star(originalShape);
+    
+    out<< star.draw() <<endl;
+    out<< "showpage"<<endl;
+    
+    for(double i = 600.0; i >= 30.0; i-=2)
+    {
+        Resize scaledShape(make_shared<Layered>(star), i, i);
+        cout << scaledShape.getWidth() << endl;
+        cout << scaledShape.getHeight() << endl;
+        Rotated rotatedShape(make_shared<Resize>(scaledShape), fmod(i,90.0));
+        cout << rotatedShape.getWidth() << endl;
+        cout << rotatedShape.getHeight() << endl;
+        
+        colShapes.push_back(make_shared<Rotated>(rotatedShape));
+        
+    }
+    
+//    cout<<colShapes.size()<<endl;
+    
+    
+//    for(auto i : colShapes)
+//    {
+//        cout << i->getHeight() << endl;
+//        cout << i->getWidth() << endl;
+//    }
+    
+    Layered layerCollectionOfFinalShape(colShapes);
+
+    Resize finalResize(make_shared<Layered>(layerCollectionOfFinalShape), inches(8.5), inches(8));
+    
+    out << Rotated(make_shared<Resize>(finalResize), 180).draw() << endl;
+    
+    
+    out << "showpage"<<endl;
     
     
     

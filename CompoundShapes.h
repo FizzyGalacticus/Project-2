@@ -40,7 +40,7 @@ public:
             _width = _shape->getHeight();
             _height = _shape->getWidth();
         }
-        else if (_rotationAngle == 180)
+        else
         {
             _width = _shape->getWidth();
             _height = _shape->getHeight();
@@ -80,8 +80,10 @@ class Scaled : public CompoundShapes
 public:
     Scaled(shared_ptr<BasicShapes> shape, double fx, double fy):_shape(shape), _fx(fx), _fy(fy)
     {
-    	_width = _fx / _shape->getWidth();
-        _height = _fy / _shape->getHeight();
+        std::cout<<"Width of the shape: "<<_shape->getWidth()<<std::endl;
+        std::cout<<"Height of the shape: "<<_shape->getHeight()<<std::endl;
+    	_width = _fx * _shape->getWidth();
+        _height = _fy * _shape->getHeight();
     }
     
     ~Scaled(){};
@@ -104,19 +106,47 @@ private:
 };
 
 
+class Resize : public CompoundShapes
+{
+public:
+    Resize(shared_ptr<BasicShapes> shape, double fx, double fy):_shape(shape)
+    {
+        _width = fx;
+        _height = fy;
+    }
+    
+    ~Resize(){};
+    string draw()
+    {
+        string widthFraction = to_string(_width/_shape->getWidth());
+        string heightFraction = to_string(_height/_shape->getHeight());
+        const string comment = "% Scaled shape\n";
+        
+        return comment + widthFraction + " " + heightFraction + " scale \n" + _shape->draw();
+    }
+    
+	const double & getHeight() const {return _width;}
+	const double & getWidth() const {return _height;}
+    
+private:
+    shared_ptr<BasicShapes> _shape;
+};
+
+
+
 class Layered : public CompoundShapes
 {
 public:
     Layered(vector<shared_ptr<BasicShapes>> shapes):_shapes(shapes)
     {
-
-        std::cout<<_height<<std::endl;
     	for(auto i : shapes)
     	{
-            std::cout<<i->getHeight()<<std::endl;
     		if(i->getHeight() > _height) _height = i->getHeight();
     		if(i->getWidth() > _width) _width = i->getWidth();
     	}
+        
+        std::cout << "Height of Layered: " << _height << std::endl;
+        std::cout << "Width of Layered: " << _width << std::endl;
     }
     
     string draw()
