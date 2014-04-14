@@ -80,15 +80,6 @@ void writeTests(ofstream & out)
         
     }
     
-//    cout<<colShapes.size()<<endl;
-    
-    
-//    for(auto i : colShapes)
-//    {
-//        cout << i->getHeight() << endl;
-//        cout << i->getWidth() << endl;
-//    }
-    
     Layered layerCollectionOfFinalShape(colShapes);
 
     Resize finalResize(make_shared<Layered>(layerCollectionOfFinalShape), inches(8.5), inches(8));
@@ -97,9 +88,6 @@ void writeTests(ofstream & out)
     
     
     out << "showpage"<<endl;
-    
-    
-    
 }
 
 int main(int argc, const char * argv[])

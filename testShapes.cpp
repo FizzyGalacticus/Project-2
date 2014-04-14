@@ -64,30 +64,44 @@ vector< vector< shared_ptr<Shapes > > > createCompoundShapes(const vector<shared
 		vector< shared_ptr<Shapes > > temp;
 		
 		temp.push_back(i);
+		temp.push_back(make_shared<Rotated>(Rotated(i, 90)));
+		temp.push_back(make_shared<Rotated>(Rotated(i, 180)));
+		temp.push_back(make_shared<Rotated>(Rotated(i, 270)));
 		
 		allShapes.push_back(temp);
 	}
 	
 	for(auto i : allShapes)
-	{
-		for(auto j : i)
-		{
-			Rotated rotatedNinety(j, 90),
-				rotatedOneEighty(j, 180), 
-				rotatedTwoSeventy(j, 270);
-			
-			i.push_back(
-				make_shared<Rotated>(rotatedNinety));
-			i.push_back(
-				make_shared<Rotated>(rotatedOneEighty));
-			i.push_back(
-				make_shared<Rotated>(rotatedTwoSeventy));
-			cout << j->draw() << endl;
-		}
 		cout << i.size() << endl;
-	}
-	
+		
 	return allShapes;
+}
+
+void ourCoolDrawing()
+{
+	vector<shared_ptr<Shapes>> colShapes;
+	
+	Triangle myTriangle(700);
+    
+    Rotated bottomTriangle(make_shared<Triangle>(myTriangle), 180);
+    
+    vector<shared_ptr<Shapes>> originalShape = {make_shared<Rotated>(bottomTriangle), make_shared<Triangle>(myTriangle)};
+    
+    Layered ourShape(originalShape);
+    
+    for(double i = 600.0; i >= 30.0; i-=2)
+    {
+        Resize scaledShape(make_shared<Layered>(ourShape), i, i);
+        Rotated rotatedShape(make_shared<Resize>(scaledShape), fmod(i,90.0));
+        colShapes.push_back(make_shared<Rotated>(rotatedShape));
+        
+    }
+    
+    Layered layerCollectionOfFinalShape(colShapes);
+
+    Resize finalResize(make_shared<Layered>(layerCollectionOfFinalShape), inches(8.5), inches(8));
+    
+    writeToFile(Rotated(make_shared<Resize>(finalResize), 180).draw() + "showpage\n");
 }
 
 void testShapes()
@@ -98,9 +112,7 @@ void testShapes()
 	for(auto i : allShapes)
 	{
 		for(auto j : i)
-		{
 			writeToFile(j->draw() + "showpage\n");
-		}
 	}
 }
 
@@ -109,6 +121,8 @@ int main()
 	titlePage();
 		
 	testShapes();
+	
+	ourCoolDrawing();
 	
 	return 0;
 }
