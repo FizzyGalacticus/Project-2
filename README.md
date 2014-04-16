@@ -102,8 +102,8 @@ The following files are included with this package:
 *	[testShapes.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/testShapes.cpp)
 
 ## Use
-To use this library, you can create a Shape object by passing the correct variables to their constructors (please see source regarding constructor arguments). Once an object is created, you can simply write it to a PostScript file by calling the draw() method. All Shape object have a draw() method that return an std::string with the appropriate PostScript code. 
+To use this library, you can create a Shape object by passing the correct variables to their constructors (please see source regarding constructor arguments). Once an object is created, you can get the appropriate PostScript code as an std::string from the object by calling its draw() method.
 
-To compile library, you must include the Shapes.h and CompoundShapes.h files link with Shapes.cpp and CompoundShapes.cpp.
+To compile library, you must include the Shapes.h and CompoundShapes.h files, then link with Shapes.cpp and CompoundShapes.cpp.
 
 **NOTE** You must compile using the c++11 standard. We make good use of shared_ptr and the 'auto' keyword.
