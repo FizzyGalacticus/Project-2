@@ -124,7 +124,7 @@ class Star : public Shapes
     		string widthFraction =
     			to_string(_width/myTriangle.getWidth());
     		string heightFraction =
-    			to_string(_height/myTriangle.getHeight());
+    			to_string(_height/(myTriangle.getHeight() + (myTriangle.getHeight()/3)));
     
     		drawString += widthFraction + " " + heightFraction + " scale\n";
     		
