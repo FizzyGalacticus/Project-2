@@ -44,6 +44,7 @@ void titlePage()
 	writeToFile("%***	BEGIN TESTING	***%\n\n");
 }
 
+//Add shapes you wish to test in here!
 vector<shared_ptr<Shapes>> createBasicShapes()
 {
 	vector<shared_ptr<Shapes>> basicShapes;

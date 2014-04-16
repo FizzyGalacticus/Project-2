@@ -90,3 +90,20 @@ CPS lets the user translate any shape into a sequence of PostScript commands. Th
 *		width = sideLength /(sin(π/numberOfSides))
 
 5. In PostScript, use showpage to finally draw the current page and create a new page.
+
+## Files
+The following files are included with this package:
+*	[CompoundShapes.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/CompoundShapes.cpp)
+*	[CompoundShapes.h](https://github.com/FizzyGalacticus/Project-2/blob/master/CompoundShapes.h)
+*	main.cpp
+*	[README.md](https://github.com/FizzyGalacticus/Project-2/blob/master/README.md)
+*	[Shapes.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/Shapes.cpp)
+*	[Shapes.h](https://github.com/FizzyGalacticus/Project-2/blob/master/Shapes.h)
+*	[testShapes.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/testShapes.cpp)
+
+## Use
+To use this library, you can create a Shape object by passing the correct variables to their constructors (please see source regarding constructor arguments). Once an object is created, you can simply write it to a PostScript file by calling the draw() method. All Shape object have a draw() method that return an std::string with the appropriate PostScript code. 
+
+To compile library, you must include the Shapes.h and CompoundShapes.h files link with Shapes.cpp and CompoundShapes.cpp.
+
+**NOTE** You must compile using the c++11 standard. We make good use of shared_ptr and the 'auto' keyword.
