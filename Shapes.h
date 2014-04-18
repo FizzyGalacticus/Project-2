@@ -96,5 +96,6 @@ public:
     string draw();
 private:
     double _radius;
+    double _diameter;
 };
 #endif /* defined(__CS372Project2__Shapes__) */

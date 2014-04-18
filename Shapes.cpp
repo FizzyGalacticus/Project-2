@@ -138,15 +138,15 @@ string Spacer::draw()
     
 }
 
-Circle::Circle(double radius):_radius(radius){}
+Circle::Circle(double radius):_radius(radius), _diameter(radius*2) {}
 const double & Circle::getHeight() const
 {
-    return _radius*2;
+    return _diameter;
 }
 
 const double & Circle::getWidth() const
 {
-    return getHeight();
+    return _diameter;
 }
 string Circle::draw()
 {
