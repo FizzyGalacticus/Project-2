@@ -6,112 +6,96 @@
 #include <iostream>
 using std::cout;
 using std::endl;
-#include "Shapes.h"
-#include "CompoundShapes.h"
+using std::cin;
+
 #include <fstream>
 using std::ofstream;
 
+#include <string>
+using std::string;
+
+#include "Shapes.h"
+#include "CompoundShapes.h"
+
 const double inches(const double & numberOfInches) {return numberOfInches * 72;}
 
-void writeTests(ofstream & out)
+const int getSideLength()
 {
-//	const string nextSection = "showpage\n%****************************************%\n";
-//	Rectangle myRectangle(40, 50);
-//	Spacer mySpacer(40, 50);
-//
-//	Polygon myPolygon(13, 50);
-//
-//	Square mySquare(inches(2));
-//
-//	Triangle myTriangle(inches(4));
-//	
-//	Circle myCircle(myTriangle.getHeight()/2);
-//	
-//	Rotated myRotated(make_shared<Triangle>(myTriangle),180);
-//	vector<shared_ptr<Shapes>>  layeredshapes = {make_shared<Rotated>(myRotated), make_shared<Triangle>(myTriangle)},
-//        myshapes = {make_shared<Triangle>(myTriangle), make_shared<Rectangle>(myRectangle), make_shared<Circle>(myCircle)};
-//	Layered myLayered(layeredshapes);
-//	Horizontal myHorizontal(myshapes);
-//	vector<Shapes *> stacks = {&myHorizontal, &myHorizontal, &myPolygon};
-//	
-//	out << myTriangle.draw();
-//	out << "gsave\n" << (myTriangle.getWidth()/2)-(myCircle.getWidth()/2) << " " << myTriangle.getHeight() << " translate" << endl;
-//	out << myCircle.draw();
-//	out << "grestore\n" << endl;
-//	out << nextSection;
-//	out << Horizontal(myshapes).draw();
-    
-    vector<shared_ptr<Shapes>> myShapes;
-    
-    for(auto i = 100; i >= 3; i-=2)
-    {
-        Polygon myPolygon(i, inches(3));
-        Rotated myRotated(make_shared<Polygon>(myPolygon), 90);
-        myShapes.push_back(make_shared<Rotated>(myRotated));
-    }
-    
-    Polygon myPolygon(20, inches(3));
-    
-    Layered myLayeredShapes(myShapes);
-    
-    Resize scaledShapes(make_shared<Layered>(myLayeredShapes), inches(8.5), inches(11));
-    
-    out << scaledShapes.draw();
-    out << "showpage"<<endl;
-    
-    vector<shared_ptr<Shapes>> colShapes;
-    
-    Triangle myTriangle(700);
-    
-    Rotated bottomTriangle(make_shared<Triangle>(myTriangle), 180);
-    
-    vector<shared_ptr<Shapes>> originalShape = {make_shared<Rotated>(bottomTriangle), make_shared<Triangle>(myTriangle)};
-    
-    Layered star(originalShape);
-    
-    out<< star.draw() <<endl;
-    out<< "showpage"<<endl;
-    
-    for(double i = 600.0; i >= 30.0; i-=2)
-    {
-        Resize scaledShape(make_shared<Layered>(star), i, i);
-        Rotated rotatedShape(make_shared<Resize>(scaledShape), fmod(i,90.0));
-        colShapes.push_back(make_shared<Rotated>(rotatedShape));
-        
-    }
-    
-    Layered layerCollectionOfFinalShape(colShapes);
+	int input = 3;
+	
+	cout << "Please enter a desired length for each side: ";
+	cin >> input;
+	
+	return input;
+}
 
-    Resize finalResize(make_shared<Layered>(layerCollectionOfFinalShape), inches(8.5), inches(8));
-    
-    out << Rotated(make_shared<Resize>(finalResize), 180).draw() << endl;
-    
-    
-    out << "showpage"<<endl;
+const int getNumberOfSides()
+{
+	int input = 3;
+	
+	cout << "Please enter a desired number of sides: ";
+	cin >> input;
+	
+	return input;
+}
+
+const int getRadius()
+{
+	int input = 3;
+	
+	cout << "Please enter a desired radius: ";
+	cin >> input;
+	
+	return input;
+}
+
+const Polygon createPolygon()
+{
+	int numberOfSides = getNumberOfSides();
+	int sideLength = inches(getSideLength());
+	return Polygon(numberOfSides, sideLength);
+}
+
+const Triangle createTriangle()
+{
+	return Triangle(inches(getSideLength()));
+}
+
+const Circle createCircle()
+{
+	return Circle(inches(getRadius()));
+}
+
+const Rectangle createRectangle()
+{
+	return Rectangle(inches(getSideLength()), inches(getSideLength()));
+}
+
+const Square createSquare()
+{
+	return Square(inches(getSideLength()));
+}
+
+void writeShapesToFile(const string & postScript, const string & filename)
+{
+	ofstream out;
+	
+	out.open(filename.c_str(), std::ios::out);
+	
+	if(out)
+	{
+		out << postScript;
+		out.close();
+	}
+	else cout << "Unable to open \"" << filename << "\" for writing!" << endl;
 }
 
 int main(int argc, const char * argv[])
 {
 	ofstream out;
+	const string filename = (argc > 1) ? argv[1] : "postscript.ps";
 
-	if(argc > 1)
-	{
-		out.open(argv[1],std::ios::out);
-		if(out)
-		{
-			writeTests(out);
-		}
-		else cout<<"Could not open file"<<endl;
-	}
-	else
-	{
-		out.open("postscript.ps",std::ios::out);
-		if(out)
-		{
-			writeTests(out);
-		}
-		else cout<<"Could not open file"<<endl;
-	}
+	
 
 	return 0;
 }
