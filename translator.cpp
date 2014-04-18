@@ -1,5 +1,5 @@
 //  Dustin Dodson, Igor Kolesnik, Eric Pelto
-//  main.cpp
+//  translator.cpp
 //  Software Construction
 //  Project 1
 
@@ -33,10 +33,24 @@ using std::ofstream;
 #include <string>
 using std::string;
 
+#include <utility>
+
 #include "Shapes.h"
 #include "CompoundShapes.h"
 
 const double inches(const double & numberOfInches) {return numberOfInches * 72;}
+
+const std::pair<double,double> getWidthAndHeight()
+{
+	double width, height;
+	cout << "Please enter a desired width: ";
+	cin >> width;
+	cout << "Please enter a desired height: ";
+	cin >> height;
+	clearScreen();
+	
+	return std::pair<double,double>(width,height);
+}
 
 const double getSideLength()
 {
@@ -106,17 +120,31 @@ vector<shared_ptr<Shapes>> getRotated(const vector<shared_ptr<Shapes>> originalS
 	return newShapes;
 }
 
+vector<shared_ptr<Shapes>> getScaled(const vector<shared_ptr<Shapes>> originalShapes)
+{
+	vector<shared_ptr<Shapes>> newShapes;
+	double input = 1;
+	double rotationAngle = 0;
+	
+	cout << "Please enter desired scaling factor: ";
+	cin >> input;
+	clearScreen();
+	
+	if(input < 0) input = (0-input);
+	
+	for(auto shape : originalShapes)
+		newShapes.push_back(make_shared<Scaled>(shape, input, input));
+	
+	return newShapes;
+}
+
 Star createStar()
 {
 	double height, width;
 	
-	cout << "Please enter a desired width for the star: ";
-	cin >> width;
-	cout << "Please enter a desired height for the star: ";
-	cin >> height;
-	clearScreen();
+	const std::pair<double,double> widthAndHeight = getWidthAndHeight();
 	
-	return Star(inches(width), inches(height));
+	return Star(inches(widthAndHeight.first), inches(widthAndHeight.second));
 }
 
 Polygon createPolygon()
@@ -138,7 +166,9 @@ Circle createCircle()
 
 Rectangle createRectangle()
 {
-	return Rectangle(inches(getSideLength()), inches(getSideLength()));
+	std::pair<double,double> widthAndHeight = getWidthAndHeight();
+	
+	return Rectangle(inches(widthAndHeight.first), inches(widthAndHeight.second));
 }
 
 Square createSquare()
@@ -264,7 +294,7 @@ const string start()
 				createdShapes = getRotated(createdShapes);
 			break;
 			case 6:
-				
+				createdShapes = getScaled(createdShapes);
 			break;
 			case 7:
 				writeShapesToPostScriptString(createdShapes, postScript);
