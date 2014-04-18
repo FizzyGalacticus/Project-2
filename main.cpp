@@ -3,6 +3,25 @@
 //  Software Construction
 //  Project 1
 
+#include <stdlib.h>
+
+//***********IF ON WINDOWS**************
+	#if defined(__WIN32__) || defined(_WIN32) || defined(_WIN64) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+
+	inline void clearScreen() {system("cls");}
+
+//**********IF ON LINUX*****************
+#elif defined(__linux__) || defined(linux) || defined(__linux)
+
+	inline void clearScreen() {system("clear");}
+
+//***********IF ON MAC******************
+#elif defined(macintosh) || defined(Macintosh) || defined(__APPLE__) && defined(__MACH__)
+
+	inline void clearScreen() {system("clear");}
+
+#endif
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -25,6 +44,7 @@ const double getSideLength()
 	
 	cout << "Please enter a desired length for each side: ";
 	cin >> input;
+	clearScreen();
 	
 	return input;
 }
@@ -35,6 +55,7 @@ const double getNumberOfSides()
 	
 	cout << "Please enter a desired number of sides: ";
 	cin >> input;
+	clearScreen();
 	
 	return input;
 }
@@ -45,11 +66,12 @@ const double getRadius()
 	
 	cout << "Please enter a desired radius: ";
 	cin >> input;
+	clearScreen();
 	
 	return input;
 }
 
-const Star createStar()
+Star createStar()
 {
 	double height, width;
 	
@@ -57,33 +79,34 @@ const Star createStar()
 	cin >> width;
 	cout << "Please enter a desired height for the star: ";
 	cin >> height;
+	clearScreen();
 	
-	return Star(width, height);
+	return Star(inches(width), inches(height));
 }
 
-const Polygon createPolygon()
+Polygon createPolygon()
 {
 	double numberOfSides = getNumberOfSides();
 	double sideLength = inches(getSideLength());
 	return Polygon(numberOfSides, sideLength);
 }
 
-const Triangle createTriangle()
+Triangle createTriangle()
 {
 	return Triangle(inches(getSideLength()));
 }
 
-const Circle createCircle()
+Circle createCircle()
 {
 	return Circle(inches(getRadius()));
 }
 
-const Rectangle createRectangle()
+Rectangle createRectangle()
 {
 	return Rectangle(inches(getSideLength()), inches(getSideLength()));
 }
 
-const Square createSquare()
+Square createSquare()
 {
 	return Square(inches(getSideLength()));
 }
@@ -102,7 +125,7 @@ void writeShapesToFile(const string & postScript, const string & filename)
 	else cout << "Unable to open \"" << filename << "\" for writing!" << endl;
 }
 
-shared_ptr<const Shapes> createBasicShape()
+shared_ptr<Shapes> createBasicShape()
 {
 	int choice = 0;
 	
@@ -116,6 +139,7 @@ shared_ptr<const Shapes> createBasicShape()
 		cout << "5. Create a Polygon" << endl;
 		cout << "6. Create a Star" << endl;
 		cin >> choice;
+		clearScreen();
 		
 		switch(choice)
 		{
@@ -145,12 +169,13 @@ shared_ptr<const Shapes> createBasicShape()
 
 const string start()
 {
-	vector<shared_ptr<const Shapes>> createdShapes;
+	vector<shared_ptr<Shapes>> createdShapes, temp;
 	
 	string postScript = "";
 	int choice = 0;
+	double totalWidth;
 	
-	while(choice != 8)
+	while(true)
 	{
 		cout << "What would you like to do?" << endl;
 		cout << "1. Add a Basic Shape to collection" << endl;
@@ -162,20 +187,27 @@ const string start()
 		cout << "7. Add a New Page (writes current collection)" << endl;
 		cout << "8. None, I'm done making shapes!" << endl;
 		cin >> choice;
+		clearScreen();
 		
 		switch(choice)
 		{
 			case 1:
-				
+				createdShapes.push_back(createBasicShape());
 			break;
 			case 2:
-				
+				temp.push_back(make_shared<Layered>(createdShapes));
+				createdShapes = temp;
+				temp.clear();
 			break;
 			case 3:
-				
+				temp.push_back(make_shared<Vertical>(createdShapes));
+				createdShapes = temp;
+				temp.clear();
 			break;
 			case 4:
-				
+				temp.push_back(make_shared<Horizontal>(createdShapes));
+				createdShapes = temp;
+				temp.clear();
 			break;
 			case 5:
 				
@@ -184,17 +216,24 @@ const string start()
 				
 			break;
 			case 7:
-				
+				totalWidth = 0;
+				postScript += "gsave\n";
+				for(auto shape : createdShapes)
+				{
+					postScript += shape->draw();
+					totalWidth += shape->getWidth();
+					postScript += to_string(totalWidth) + " 0 moveto\n";
+				}
+				postScript += "grestore\nshowpage\n";
+				createdShapes.clear();
 			break;
 			case 8:
-				
+				return postScript;
 			break;
 			default:
 				cout << "That was not an option." << endl;
 		}
 	}
-	
-	return postScript;
 }
 
 int main(int argc, const char * argv[])
@@ -202,7 +241,8 @@ int main(int argc, const char * argv[])
 	ofstream out;
 	const string filename = (argc > 1) ? argv[1] : "postscript.ps";
 
-	
+	clearScreen();
+	writeShapesToFile(start(), filename);
 
 	return 0;
 }
