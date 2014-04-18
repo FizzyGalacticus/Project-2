@@ -19,9 +19,9 @@ using std::string;
 
 const double inches(const double & numberOfInches) {return numberOfInches * 72;}
 
-const int getSideLength()
+const double getSideLength()
 {
-	int input = 3;
+	double input = 3;
 	
 	cout << "Please enter a desired length for each side: ";
 	cin >> input;
@@ -29,9 +29,9 @@ const int getSideLength()
 	return input;
 }
 
-const int getNumberOfSides()
+const double getNumberOfSides()
 {
-	int input = 3;
+	double input = 3;
 	
 	cout << "Please enter a desired number of sides: ";
 	cin >> input;
@@ -39,9 +39,9 @@ const int getNumberOfSides()
 	return input;
 }
 
-const int getRadius()
+const double getRadius()
 {
-	int input = 3;
+	double input = 3;
 	
 	cout << "Please enter a desired radius: ";
 	cin >> input;
@@ -49,10 +49,22 @@ const int getRadius()
 	return input;
 }
 
+const Star createStar()
+{
+	double height, width;
+	
+	cout << "Please enter a desired width for the star: ";
+	cin >> width;
+	cout << "Please enter a desired height for the star: ";
+	cin >> height;
+	
+	return Star(width, height);
+}
+
 const Polygon createPolygon()
 {
-	int numberOfSides = getNumberOfSides();
-	int sideLength = inches(getSideLength());
+	double numberOfSides = getNumberOfSides();
+	double sideLength = inches(getSideLength());
 	return Polygon(numberOfSides, sideLength);
 }
 
@@ -88,6 +100,101 @@ void writeShapesToFile(const string & postScript, const string & filename)
 		out.close();
 	}
 	else cout << "Unable to open \"" << filename << "\" for writing!" << endl;
+}
+
+shared_ptr<const Shapes> createBasicShape()
+{
+	int choice = 0;
+	
+	while(true)
+	{
+		cout << "What would you like to do?" << endl;
+		cout << "1. Create a Square" << endl;
+		cout << "2. Create a Rectangle" << endl;
+		cout << "3. Create a Triangle" << endl;
+		cout << "4. Create a Circle" << endl;
+		cout << "5. Create a Polygon" << endl;
+		cout << "6. Create a Star" << endl;
+		cin >> choice;
+		
+		switch(choice)
+		{
+			case 1:
+				return make_shared<Square>(createSquare());
+			break;
+			case 2:
+				return make_shared<Rectangle>(createRectangle());
+			break;
+			case 3:
+				return make_shared<Triangle>(createTriangle());
+			break;
+			case 4:
+				return make_shared<Circle>(createCircle());
+			break;
+			case 5:
+				return make_shared<Polygon>(createPolygon());
+			break;
+			case 6:
+				return make_shared<Star>(createStar());
+			break;
+			default:
+				cout << "That was not an option." << endl;
+		}
+	}
+}
+
+const string start()
+{
+	vector<shared_ptr<const Shapes>> createdShapes;
+	
+	string postScript = "";
+	int choice = 0;
+	
+	while(choice != 8)
+	{
+		cout << "What would you like to do?" << endl;
+		cout << "1. Add a Basic Shape to collection" << endl;
+		cout << "2. Create a Layered Shape out of collection" << endl;
+		cout << "3. Create a Vertical Shape out of collection" << endl;
+		cout << "4. Create a Horizontal Shape out of collection" << endl;
+		cout << "5. Rotate Current Shapes in collection" << endl;
+		cout << "6. Scale current Shapes" << endl;
+		cout << "7. Add a New Page (writes current collection)" << endl;
+		cout << "8. None, I'm done making shapes!" << endl;
+		cin >> choice;
+		
+		switch(choice)
+		{
+			case 1:
+				
+			break;
+			case 2:
+				
+			break;
+			case 3:
+				
+			break;
+			case 4:
+				
+			break;
+			case 5:
+				
+			break;
+			case 6:
+				
+			break;
+			case 7:
+				
+			break;
+			case 8:
+				
+			break;
+			default:
+				cout << "That was not an option." << endl;
+		}
+	}
+	
+	return postScript;
 }
 
 int main(int argc, const char * argv[])
