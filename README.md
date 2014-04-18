@@ -95,7 +95,7 @@ CPS lets the user translate any shape into a sequence of PostScript commands. Th
 The following files are included with this package:
 *	[CompoundShapes.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/CompoundShapes.cpp)
 *	[CompoundShapes.h](https://github.com/FizzyGalacticus/Project-2/blob/master/CompoundShapes.h)
-*	main.cpp
+*	[main.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/main.cpp)
 *	[README.md](https://github.com/FizzyGalacticus/Project-2/blob/master/README.md)
 *	[Shapes.cpp](https://github.com/FizzyGalacticus/Project-2/blob/master/Shapes.cpp)
 *	[Shapes.h](https://github.com/FizzyGalacticus/Project-2/blob/master/Shapes.h)
@@ -104,6 +104,8 @@ The following files are included with this package:
 ## Use
 To use this library, you can create a Shape object by passing the correct variables to their constructors (please see source regarding constructor arguments). Once an object is created, you can get the appropriate PostScript code as an std::string from the object by calling its draw() method.
 
-To compile library, you must include the Shapes.h and CompoundShapes.h files, then link with Shapes.cpp and CompoundShapes.cpp.
+"main.cpp", when compiled, is a driver demo for creating as many shapes as you want in whatever order you want, then manipulating them. You can run it with no arguments, or the first argument you pass it will be the output file name. It functions essentially just like a stack-based language, meaning that each shape is added in the order that you make them. By making a layered, vertical, or horizontal shape, it takes every shape from the "stack" and puts them into the new Compound Shape (once again, in the order they were created). Choosing to rotate a shape is choosing to rotate all of the shapes on the "stack." You can add multiple pages as you go, each time you do, it empties the current "stack." Telling the demo that you are done with the shapes also writes to a page, then writes to the file.
+
+To compile the library, you must include the Shapes.h and CompoundShapes.h files, then link with Shapes.cpp and CompoundShapes.cpp.
 
 **NOTE** You must compile using the c++11 standard. We make good use of shared_ptr and the 'auto' keyword.
