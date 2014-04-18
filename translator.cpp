@@ -186,7 +186,7 @@ void writeShapesToPostScriptString(vector<shared_ptr<Shapes>> & createdShapes, s
 		{
 			postScript += shape->draw();
 			totalWidth += shape->getWidth();
-			postScript += to_string(totalWidth) + " 0 moveto\n";
+			postScript += to_string(totalWidth) + " 0 translate\n";
 		}
 		postScript += "grestore\nshowpage\n";
 		createdShapes.clear();
