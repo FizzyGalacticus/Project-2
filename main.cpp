@@ -71,6 +71,41 @@ const double getRadius()
 	return input;
 }
 
+vector<shared_ptr<Shapes>> getRotated(const vector<shared_ptr<Shapes>> originalShapes)
+{
+	vector<shared_ptr<Shapes>> newShapes;
+	int input = 0;
+	double rotationAngle = 0;
+	
+	while(input != 1 && input != 2 && input != 3)
+	{
+		cout << "How much would you like to rotate your shapes?" << endl;
+		cout << "1. 90 degrees." << endl;
+		cout << "2. 180 degrees." << endl;
+		cout << "3. 270 degrees." << endl;
+		cin >> input;
+		clearScreen();
+		
+		switch(input)
+		{
+			case 1:
+				rotationAngle = 90.0;
+			break;
+			case 2:
+				rotationAngle = 180.0;
+			break;
+			case 3:
+				rotationAngle = 270.0;
+			break;
+		}
+	}
+	
+	for(auto shape : originalShapes)
+		newShapes.push_back(make_shared<Rotated>(shape, rotationAngle));
+	
+	return newShapes;
+}
+
 Star createStar()
 {
 	double height, width;
@@ -109,6 +144,23 @@ Rectangle createRectangle()
 Square createSquare()
 {
 	return Square(inches(getSideLength()));
+}
+
+void writeShapesToPostScriptString(vector<shared_ptr<Shapes>> & createdShapes, string & postScript)
+{
+	if(createdShapes.size())
+	{
+		double totalWidth = 0;
+		postScript += "gsave\n";
+		for(auto shape : createdShapes)
+		{
+			postScript += shape->draw();
+			totalWidth += shape->getWidth();
+			postScript += to_string(totalWidth) + " 0 moveto\n";
+		}
+		postScript += "grestore\nshowpage\n";
+		createdShapes.clear();
+	}
 }
 
 void writeShapesToFile(const string & postScript, const string & filename)
@@ -173,7 +225,6 @@ const string start()
 	
 	string postScript = "";
 	int choice = 0;
-	double totalWidth;
 	
 	while(true)
 	{
@@ -184,7 +235,7 @@ const string start()
 		cout << "4. Create a Horizontal Shape out of collection" << endl;
 		cout << "5. Rotate Current Shapes in collection" << endl;
 		cout << "6. Scale current Shapes" << endl;
-		cout << "7. Add a New Page (writes current collection)" << endl;
+		cout << "7. Write current collection to page" << endl;
 		cout << "8. None, I'm done making shapes!" << endl;
 		cin >> choice;
 		clearScreen();
@@ -210,24 +261,16 @@ const string start()
 				temp.clear();
 			break;
 			case 5:
-				
+				createdShapes = getRotated(createdShapes);
 			break;
 			case 6:
 				
 			break;
 			case 7:
-				totalWidth = 0;
-				postScript += "gsave\n";
-				for(auto shape : createdShapes)
-				{
-					postScript += shape->draw();
-					totalWidth += shape->getWidth();
-					postScript += to_string(totalWidth) + " 0 moveto\n";
-				}
-				postScript += "grestore\nshowpage\n";
-				createdShapes.clear();
+				writeShapesToPostScriptString(createdShapes, postScript);
 			break;
 			case 8:
+				writeShapesToPostScriptString(createdShapes, postScript);
 				return postScript;
 			break;
 			default:
