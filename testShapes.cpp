@@ -53,8 +53,14 @@ vector<shared_ptr<Shapes>> createBasicShapes()
 	basicShapes.push_back(make_shared<Rectangle>(inches(3), inches(5)));
 	basicShapes.push_back(make_shared<Circle>(inches(1.5)));
 	basicShapes.push_back(make_shared<Star>(inches(3.5), inches(3)));
-	basicShapes.push_back(make_shared<Vertical>(basicShapes));
-	basicShapes.push_back(make_shared<Horizontal>(basicShapes));
+	
+	Vertical myVertical(basicShapes);
+	Horizontal myHorizontal(basicShapes);
+	
+	basicShapes.push_back(make_shared<Vertical>(myVertical));
+	basicShapes.push_back(make_shared<Horizontal>(myHorizontal));
+	
+	basicShapes.push_back(make_shared<Boat>(inches(5), inches(3.5)));
 	
 	return basicShapes;
 }
@@ -123,14 +129,14 @@ void testShapes()
 
 int main()
 {
-	//titlePage();
+	titlePage();
 		
-	//testShapes();
+	testShapes();
 	
-	//ourCoolDrawing();
+	ourCoolDrawing();
 
-    Boat2 myBoat(inches(8.5), inches(11));
-	writeToFile(myBoat.draw()+ "showpage\n");
+    //Boat myBoat(inches(8.5), inches(11));
+	//writeToFile(myBoat.draw()+ "showpage\n");
 	
 	return 0;
 }

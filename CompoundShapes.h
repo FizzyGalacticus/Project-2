@@ -148,67 +148,6 @@ public:
     const double & getWidth() const {return _width;}
     string draw()
     {
-        string drawString = "gsave\n";
-        
-        Triangle myTriangle(300);
-        Rotated leftTriangle(make_shared<Triangle>(myTriangle), 90);
-        Rotated rightTriangle(make_shared<Triangle>(myTriangle), 270);
-        
-        Rectangle myRectangle(600, 300);
-        
-        vector<shared_ptr<Shapes>> bottomOfBoat = {make_shared<Rotated>(leftTriangle), make_shared<Rectangle>(myRectangle), make_shared<Rotated>(rightTriangle)};
-        
-        Horizontal bottom(bottomOfBoat);
-        
-        Rectangle flagPoll(20, 400);
-        
-        Spacer flagSpacer(300, 200);
-        
-        Rectangle flagRec(300, 200);
-        
-        Circle myCircle(50);
-        
-        Star myStar(100, 100);
-        
-        vector<shared_ptr<Shapes>> myFlagShapes = {make_shared<Rectangle>(flagRec), make_shared<Circle> (myCircle), make_shared<Star>(myStar)};
-        
-        Layered flag(myFlagShapes);
-        
-        vector<shared_ptr<Shapes>> flyingFlagShapes = {make_shared<Spacer>(flagSpacer), make_shared<Layered>(flag)};
-        
-        Vertical flyingFlag(flyingFlagShapes);
-        
-        vector<shared_ptr<Shapes>> upperBoatShapes = {make_shared<Spacer>(flagSpacer), make_shared<Rectangle>(flagPoll), make_shared<Vertical>(flyingFlag)};
-        
-        Horizontal upperBoat(upperBoatShapes);
-        
-        vector<shared_ptr<Shapes>> finalBoatShapes = {make_shared<Horizontal>(bottom), make_shared<Horizontal>(upperBoat)};
-        
-        Vertical finalBoat(finalBoatShapes);
-        
-        string widthFraction =
-        to_string(_width/finalBoat.getWidth());
-        string heightFraction =
-        to_string(_height/(finalBoat.getHeight() + (finalBoat.getHeight()/3)));
-        
-        drawString += widthFraction + " " + heightFraction + " scale\n";
-        drawString += finalBoat.draw();
-        
-        return (drawString + "grestore\n");
-    }
-private:
-    double _width;
-    double _height;
-};
-
-class Boat2 : public CompoundShapes
-{
-public:
-    Boat2(const double width, const double height) : _width(width), _height(height) {}
-    const double & getHeight() const {return _height;}
-    const double & getWidth() const {return _width;}
-    string draw()
-    {
     	double height = 270.0, width = 360.0;
         string scalestring = to_string(_width/width) + " " + to_string(_height/height) + " scale\n",
         	drawString = scalestring + "gsave\n";
