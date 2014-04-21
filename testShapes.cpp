@@ -128,6 +128,9 @@ int main()
 	testShapes();
 	
 	ourCoolDrawing();
+//
+//    Boat myBoat(inches(5), inches(3));
+//    writeToFile(myBoat.draw()+ "showpage\n");
 	
 	return 0;
 }

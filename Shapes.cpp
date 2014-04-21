@@ -134,7 +134,7 @@ string Spacer::draw()
     string leftSide = "0 " + height + " lineto \n";
     string top = width + " " + height + " lineto \n";
     string rightSide =  width + " 0 lineto \n";
-    return "newpath " + leftSide + top + rightSide + "closepath \n";
+    return "newpath \n 0 0 moveto \n" + leftSide + top + rightSide + "closepath \n";
     
 }
 
