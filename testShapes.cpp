@@ -81,9 +81,6 @@ vector< vector< shared_ptr<Shapes > > > createCompoundShapes(const vector<shared
 		
 		allShapes.push_back(temp);
 	}
-	
-	for(auto i : allShapes)
-		cout << i.size() << endl;
 		
 	return allShapes;
 }
@@ -134,9 +131,6 @@ int main()
 	testShapes();
 	
 	ourCoolDrawing();
-
-    //Boat myBoat(inches(8.5), inches(11));
-	//writeToFile(myBoat.draw()+ "showpage\n");
 	
 	return 0;
 }

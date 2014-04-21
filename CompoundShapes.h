@@ -150,7 +150,8 @@ public:
     {
     	double height = 270.0, width = 360.0;
         string scalestring = to_string(_width/width) + " " + to_string(_height/height) + " scale\n",
-        	drawString = scalestring + "gsave\n";
+        	comment = "% OUR FANCY BOAT\n",
+        	drawString = comment + "gsave\n" + scalestring;
         
 drawString +=
         string("/inch {72 mul} def\ngsave\n0 0 translate\n10 rotate\nnewpath\n.3 inch .8 inch moveto\n") +
@@ -161,7 +162,7 @@ drawString +=
         string("3.7 inch 3.75 inch lineto\n1.8 inch 3.75 inch lineto\nclosepath\n.5 0 0 setrgbcolor\nfill\n") +
         string("newpath\n2.75 inch 2.5 inch .3 inch 0 360 arc\nclosepath\n0 1 1 setrgbcolor\nfill\n") +
         string("gsave\nnewpath\n0 1 inch moveto\n5 inch 2 inch lineto\n4 inch 0 lineto\n.5 inch 0 lineto\n") +
-        string("closepath\n0.67 0.33 0.0 setrgbcolor\nfill\ngrestore\n");
+        string("closepath\n0.67 0.33 0.0 setrgbcolor\nfill\ngrestore\n% END OF BOAT\n");
       
         return drawString;
     }
