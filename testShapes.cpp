@@ -123,14 +123,14 @@ void testShapes()
 
 int main()
 {
-	titlePage();
+	//titlePage();
 		
-	testShapes();
+	//testShapes();
 	
-	ourCoolDrawing();
-//
-//    Boat myBoat(inches(5), inches(3));
-//    writeToFile(myBoat.draw()+ "showpage\n");
+	//ourCoolDrawing();
+
+    Boat2 myBoat(inches(8.5), inches(11));
+	writeToFile(myBoat.draw()+ "showpage\n");
 	
 	return 0;
 }

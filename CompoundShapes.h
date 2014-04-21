@@ -209,64 +209,21 @@ public:
     const double & getWidth() const {return _width;}
     string draw()
     {
-        string drawString = "gsave\n";
+    	double height = 270.0, width = 360.0;
+        string scalestring = to_string(_width/width) + " " + to_string(_height/height) + " scale\n",
+        	drawString = scalestring + "gsave\n";
         
-//        drawString =
-//        " gsave\n
-//        /inch {72 mul} def
-//        
-//        gsave\n
-//        0 0 translate\n
-//        10 rotate\n
-//        newpath\n
-//        .3 inch .8 inch moveto\n
-//        2.52 inch .8 inch lineto\n
-//        2.52 inch 1.25 inch lineto\n
-//        .3 inch 1.25 inch lineto\n
-//        closepath\n
-//        0.69 0.39 0.0 setrgbcolor\n
-//        fill\n
-//        grestore\n
-//        
-//        
-//        newpath\n
-//        2 inch 1 inch moveto\n
-//        3.5 inch 1 inch lineto\n
-//        3.5 inch 3.5 inch lineto\n
-//        2 inch 3.5 inch lineto\n
-//        closepath\n
-//        0.67 .67 .67 setrgbcolor\n
-//        fill\n
-//        
-//        
-//        newpath\n
-//        1.8 inch 3.5 inch moveto\n
-//        3.7 inch 3.5 inch lineto\n
-//        3.7 inch 3.75 inch lineto\n
-//        1.8 inch 3.75 inch lineto\n
-//        closepath\n
-//        .5 0 0 setrgbcolor\n
-//        fill\n
-//        
-//        
-//        newpath\n
-//        2.75 inch 2.5 inch .3 inch 0 360 arc\n
-//        closepath\n
-//        0 1 1 setrgbcolor\n
-//        fill\n
-//        
-//        
-//        gsave\n
-//        newpath\n
-//        0 1 inch moveto\n
-//        5 inch 2 inch lineto\n
-//        4 inch 0 lineto\n
-//        .5 inch 0 lineto\n
-//        closepath\n
-//        0.67 0.33 0.0 setrgbcolor\n
-//        fill\n
-//        grestore\n"
-        
+drawString +=
+        string("/inch {72 mul} def\ngsave\n0 0 translate\n10 rotate\nnewpath\n.3 inch .8 inch moveto\n") +
+        string("2.52 inch .8 inch lineto\n2.52 inch 1.25 inch lineto\n.3 inch 1.25 inch lineto\n") +
+        string("closepath\n0.69 0.39 0.0 setrgbcolor\nfill\ngrestore\nnewpath\n2 inch 1 inch moveto\n") +
+        string("3.5 inch 1 inch lineto\n3.5 inch 3.5 inch lineto\n2 inch 3.5 inch lineto\nclosepath\n") +
+        string("0.67 .67 .67 setrgbcolor\nfill\nnewpath\n1.8 inch 3.5 inch moveto\n3.7 inch 3.5 inch lineto\n") +
+        string("3.7 inch 3.75 inch lineto\n1.8 inch 3.75 inch lineto\nclosepath\n.5 0 0 setrgbcolor\nfill\n") +
+        string("newpath\n2.75 inch 2.5 inch .3 inch 0 360 arc\nclosepath\n0 1 1 setrgbcolor\nfill\n") +
+        string("gsave\nnewpath\n0 1 inch moveto\n5 inch 2 inch lineto\n4 inch 0 lineto\n.5 inch 0 lineto\n") +
+        string("closepath\n0.67 0.33 0.0 setrgbcolor\nfill\ngrestore\n");
+      
         return drawString;
     }
 private:
